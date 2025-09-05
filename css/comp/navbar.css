@@ -63,5 +63,5 @@
 }
 
 .nav-links_items:hover {
-    color: #14B8A6;
+    color: #14B8A6 !important;
 }
