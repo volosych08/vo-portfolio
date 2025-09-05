@@ -1,0 +1,111 @@
+.header{
+    width: 70%; 
+    height: 400px;  
+    background: rgba(169, 169, 176, 0.52);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.3px);
+    -webkit-backdrop-filter: blur(7.3px);
+    border: 1px solid rgba(169, 169, 176, 1);
+    margin: 20px auto;
+
+}
+
+.header-wrap{
+    display: flex;
+    justify-content: space-between;
+    margin: 50px;
+
+}
+
+.pfp {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-left: 50px;    
+    border: 2px solid #E5E7EB;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2)
+}
+
+.pfp img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.header-name{
+    position: absolute;
+    font-family: "Inter", sans-serif;
+    font-weight: 800;
+    background: linear-gradient(
+    90deg,
+    #d9d9d9 0%,
+    #bfbfbf 20%,
+    #f6f6f6 40%,
+    #8f8f8f 60%,
+    #e3e3e3 80%,
+    #bdbdbd 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow:
+    0 1px 1px rgba(255, 255, 255, 0.6),
+    0 4px 8px rgba(0, 0, 0, 0.3);
+
+    font-size: 35px;
+    left: 400px;
+    top: 50px;
+}
+
+.short-dscr{
+    position: absolute;
+    top: 120px;
+    left: 400px;
+    font-weight: 300;
+    width: 300px;
+    font-size: 20px;
+}
+
+/* .about-me_btn{
+    right: 80px;
+    position: absolute;
+    bottom: 100px;
+    background-color: #00df9a;
+    padding: 20px 40px;
+    border-radius: 15PX;
+    text-decoration: none;
+    color: #000;
+} */
+
+.header-img{
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    right: 100px;
+}
+
+.about-me_btn{
+    position: absolute;
+    display: flex;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 50px;
+    background-color: #374151;
+    padding: 20px 80px;
+    width: 200px;
+    border-radius: 15PX;
+    text-decoration: none;
+    color: #fff;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px; 
+    font-weight: 600;
+    transition: all 200ms ease-out;
+}
+
+.about-me_btn:hover{
+    background-color: #4B5563;
+}

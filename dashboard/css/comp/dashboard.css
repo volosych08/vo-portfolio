@@ -1,0 +1,86 @@
+.dashboard {
+    width: 70%; 
+    height: 100%;  
+    background: rgba(169, 169, 176, 0.52);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.3px);
+    -webkit-backdrop-filter: blur(7.3px);
+    border: 1px solid rgba(169, 169, 176, 1);
+    margin: 20px auto;
+}
+
+.dashboard h2{
+  margin-top: 20px;
+}
+
+
+.dashboard table {
+    width: 90%;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    border-radius: 16px;
+    margin: 35px auto;
+}
+
+.dashboard td {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px 15px;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.dashboard table tr:first-child td:first-child {
+  border-top-left-radius: 16px;
+}
+
+.dashboard table tr:first-child td:last-child {
+  border-top-right-radius: 16px;
+}
+
+.dashboard table tr:last-child td:first-child {
+  border-bottom-left-radius: 16px;
+}
+
+.dashboard table tr:last-child td:last-child {
+  border-bottom-right-radius: 16px;
+}
+
+.dashboard tr:first-child {
+    font-weight: 800;
+    background: linear-gradient(
+    90deg,
+    #d9d9d9 0%,
+    #bfbfbf 20%,
+    #f6f6f6 40%,
+    #8f8f8f 60%,
+    #e3e3e3 80%,
+    #bdbdbd 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow:
+    0 1px 1px rgba(255, 255, 255, 0.6),
+    0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard td:first-child {
+    font-weight: 800;
+    background: linear-gradient(
+    90deg,
+    #d9d9d9 0%,
+    #bfbfbf 20%,
+    #f6f6f6 40%,
+    #8f8f8f 60%,
+    #e3e3e3 80%,
+    #bdbdbd 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow:
+    0 1px 1px rgba(255, 255, 255, 0.6),
+    0 4px 8px rgba(0, 0, 0, 0.3);
+}
