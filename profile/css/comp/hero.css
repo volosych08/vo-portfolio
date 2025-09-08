@@ -55,14 +55,14 @@
     0 4px 8px rgba(0, 0, 0, 0.3);
 
     font-size: 35px;
-    left: 400px;
+    left: 350px;
     top: 50px;
 }
 
 .short-dscr{
     position: absolute;
     top: 120px;
-    left: 400px;
+    left: 350px;
     font-weight: 300;
     width: 300px;
     font-size: 20px;
@@ -84,7 +84,7 @@
     width: 200px;
     height: 200px;
     border-radius: 10px;
-    right: 100px;
+    right: 50px;
 }
 
 .about-me_btn{

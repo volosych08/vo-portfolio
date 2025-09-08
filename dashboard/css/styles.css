@@ -1,11 +1,12 @@
-@import "comp/navbar.css";
+@import "../../css/comp/navbar.css";
 @import "comp/hero.css";
 @import "comp/dashboard.css";
 @import "comp/progress.css";
-@import "comp/footer.css";
+@import "../../css/comp/footer.css";
 
 html{
     scroll-behavior: smooth !important;
+    user-select: none;
 }
 
 body{

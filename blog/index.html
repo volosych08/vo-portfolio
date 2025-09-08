@@ -4,94 +4,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Blog</title>
     <meta name="description" content="The best of best portfolio website.">
+    <meta name="keywords" content="portfolio, blog, hz, html, css">
+    <meta name="author" content="Volodymyr Osychenko">
+    <link rel="icon" type="image/x-icon" href="../img/hzlogo-nobg.jpg">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" type="image/x-icon" href="img/hzlogo-nobg.jpg">">
+    <link rel="icon" type="image/x-icon" href="img/hzlogo-nobg.jpg">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
-    <nav class="navbar">
+    <nav class="navbar" data-aos="fade-down">
         <ul class="nav-links">
             <li><a class="nav-links_items" href="../index.html">Home</a></li>
-            <li><a class="nav-links_items" href="#home">Profile</a></li>
+            <li><a class="nav-links_items" href="../profile/index.html">Profile</a></li>
             <li><a class="nav-links_items" href="../dashboard/index.html">Dashboard</a></li>
-            <li><a class="nav-links_items" href="../faq/dashboard/index.html">FAQ</a></li>
-            <li><a class="nav-links_items" href="../blog/index.html">Blog</a></li>
+            <li><a class="nav-links_items" href="../faq/index.html">FAQ</a></li>
+            <li><a class="nav-links_items" href="#home">Blog</a></li>
         </ul>
     </nav>
 
-    <header class="header" id="home">
-        <div class="header-wrap">
-            <div>
-                <img class="pfp" src="../img/me2.png" alt="pfp">
+    <section class="blog" id="home" data-aos="fade-in">
+        <h2>Blog</h2>
+    
+        <!-- blog posts -->
+    
+        <div class="posts">
+            <div class="post">
+                <div class="post-image"><img src="../img/hz-logo2.jpg" alt="postImage"></div>
+                <div class="post-text">
+                    <h4>Study Choice</h4> <!-- post title -->
+                    <p>Why I chose ICT at HZ, the activities that influenced me, and what I hope to achieve after completing
+                        my studies.</p> <!-- post short desciption -->
+                </div>
+                <div class="post-dateRead">
+                    <p>09.05.2025</p> <!-- date of upload -->
+                    <a href="posts/studychoice.html">Read more</a><!-- read more btn -->
+                </div>
             </div>
-            <div>
-                <h1 class="header-name">Hey, I’m Volodymyr</h1>
-                <p class="short-dscr">Curious programmer, tech enthusiast, and lifelong learner. Always working on new
-                    projects and ideas.</p>
+    
+            <div class="post">
+                <div class="post-image"><img src="../img/hz-logo2.jpg" alt="postImage"></div>
+                <div class="post-text">
+                    <h4>Personal SWOT Analysis</h4> <!-- post title -->
+                    <p>My strengths, weaknesses, opportunities, and challenges as a future ICT student, and how I plan to
+                        grow from them.</p> <!-- post short desciption -->
+                </div>
+                <div class="post-dateRead">
+                    <p>09.05.2025</p> <!-- date of upload -->
+                    <a href="posts/swot.html">Read more</a><!-- read more btn -->
+                </div>
             </div>
-            <div class="header-links">
-                <img class="header-img" src="../img/inst.png" alt="qrinst">
-                <a class="about-me_btn" href="#readmore">Read more</a>
+    
+            <div class="post">
+                <div class="post-image"><img src="../img/hz-logo2.jpg" alt="postImage"></div>
+                <div class="post-text">
+                    <h4>Programming Experience</h4> <!-- post title -->
+                    <p>A look at how I started coding, the languages I explored, and the lessons I learned from self-study
+                        and projects</p> <!-- post short desciption -->
+                </div>
+                <div class="post-dateRead">
+                    <p>09.05.2025</p> <!-- date of upload -->
+                    <a href="posts/programingxp.html">Read more</a><!-- read more btn -->
+                </div>
+            </div>
+    
+        </div>
+    
+        <div class="posts">
+            <div class="post">
+                <div class="post-image"><img src="../img/hz-logo2.jpg" alt="postImage"></div>
+                <div class="post-text">
+                    <h4>First Feedback</h4> <!-- post title -->
+                    <p>The first feedback I received at HZ, how I reacted to it, and how it shaped my approach to learning
+                        ICT.</p> <!-- post short desciption -->
+                </div>
+                <div class="post-dateRead">
+                    <p>09.05.2025</p> <!-- date of upload -->
+                    <a href="posts/feedback.html">Read more</a><!-- read more btn -->
+                </div>
+            </div>
+    
+            <div class="post">
+                <div class="post-image"><img src="../img/hz-logo2.jpg" alt="postImage"></div>
+                <div class="post-text">
+                    <h4>ICT Field of Work</h4> <!-- post title -->
+                    <p>An overview of today’s ICT field, the exciting opportunities it offers, and why I see my future
+                        career in it.</p> <!-- post short desciption -->
+                </div>
+                <div class="post-dateRead">
+                    <p>09.05.2025</p><!-- date of upload -->
+                    <a href="POSTS/ictfieldwork.html">Read more</a><!-- read more btn -->
+                </div>
             </div>
         </div>
-    </header>
-
-    <section class="readmore" id="readmore">
-        <h1 class="read-title">About me</h1>
-        <p class="wict-content">
-            My name is Volodymyr, I am 16 years old and originally from Ukraine. I became curious about programming when
-            I was around 12–13 years old. I started with Python by following tutorials and building a simple calculator,
-            later exploring C++ where I even created a small Snake game. After a few breaks and restarts, I returned to
-            coding through web development with HTML, CSS, and JavaScript, and since then I have been lea
-            rning
-            independently through online courses and projects.
-        </p>
-        <p class="wict-content">
-            Beyond technology, I am also a car enthusiast who loves driving and learning about vehicles. My favorite
-            movie series is Fast & Furious, and I enjoy the show Silicon Valley for its humor and insights into the tech
-            world. I chose to study ICT because it combines my love for creativity, problem-solving, and technology, and
-            I am excited to continue building my skills at HZ University of Applied Sciences.
-        </p>
+    
     </section>
 
-    <section class="readmore">
-        <h1 class="read-title">Skills</h1>
-        <div class="skills">
-            <div class="why-hz">
-                <ul>
-                    <h2>Programming</h2>
-                    <li>HTML (Good)</li>
-                    <li>CSS (Good)</li>
-                    <li>C# (Beginer)</li>
-                    <li>C++ (Pre Beginer)</li>
-                </ul>
-            </div>
-            <div class="why-hz">
-                <ul>
-                    <h2>Languages</h2>
-                    <li>Ukrainian (Native)</li>
-                    <li>Russian (C2)</li>
-                    <li>Polish (C1)</li>
-                    <li>English (B2)</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <footer>
+    <footer data-aos="fade-up">
         <a class="footer-links" target="_blank" href="https://www.instagram.com/volosych08?igsh=NWM5em9zd2hweHg="><img
                 src="../img/instagram.png" alt="inst"></a>
-        <a class="footer-links" target="_blank" href="https://github.com/volosych08"><img src="../img/github.png"
-                alt="github"></a>
+        <a class="footer-links" target="_blank" href="https://github.com/volosych08"><img src="../img/github.png" alt="github"></a>
     </footer>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 </body>
-
 </html>

@@ -1,34 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- seo req -->
     <title>Home</title>
     <meta name="description" content="The best of best portfolio website.">
+    <meta name="keywords" content="portfolio, hz, html, css">
+    <meta name="author" content="Volodymyr Osychenko">
+    <link rel="icon" type="image/x-icon" href="img/hzlogo-nobg.jpg">
+    <!-- styles -->
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/styles.css">
+    <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" type="image/x-icon" href="img/hzlogo-nobg.jpg">">
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!-- animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
 <body>
-    <nav class="navbar">
+    <nav class="navbar" data-aos="fade-down">
         <ul class="nav-links">
             <li><a class="nav-links_items" href="#home">Home</a></li>
             <li><a class="nav-links_items" href="profile/index.html">Profile</a></li>
-            <li><a class="nav-links_items" href="dashbard/index.html">Dashboard</a></li>
+            <li><a class="nav-links_items" href="dashboard/index.html">Dashboard</a></li>
             <li><a class="nav-links_items" href="faq/index.html">FAQ</a></li>
             <li><a class="nav-links_items" href="blog/index.html">Blog</a></li>
         </ul>
     </nav>
 
-    <header class="header" id="home">
+    <!-- site map -->
+    
+
+    <header class="header" id="home" data-aos="zoom-in"> 
         <div class="header-wrap">
             <div>
-                <img class="pfp" src="img/hz-logo2.jpg" alt="pfp">
+                <a target="_blank" href="https://hz.nl/"><img class="pfp" src="img/hz-logo2.jpg" alt="pfp"></a>
             </div>
             <div>
                 <h1 class="header-name">Why I chose ICT at HZ</h1>
@@ -41,7 +50,7 @@
         </div>
     </header>
 
-    <section class="readmore" id="readmore">
+    <section class="readmore" id="readmore" data-aos="zoom-in-left">
         <h1 class="read-title">Why ICT</h1>
         <div class="wict">
             <div>
@@ -61,7 +70,7 @@
         </div>
     </section>
 
-    <section class="readmore">
+    <section class="readmore" data-aos="zoom-in-right">
         <h1 class="read-title">Why HZ</h1>
         <div class="wict">
             <div>
@@ -91,9 +100,13 @@
             </div>
         </div>
     </section>
-    <footer>
+    <footer data-aos="fade-up">
         <a class="footer-links" target="_blank" href="https://www.instagram.com/volosych08?igsh=NWM5em9zd2hweHg="><img src="img/instagram.png" alt="inst"></a>
         <a class="footer-links" target="_blank" href="https://github.com/volosych08"><img src="img/github.png" alt="github"></a>
     </footer>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 </body>
 </html>

@@ -4,94 +4,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>FAQ</title>
     <meta name="description" content="The best of best portfolio website.">
+    <meta name="keywords" content="portfolio, hz, html, css">
+    <meta name="author" content="Volodymyr Osychenko">
+    <link rel="icon" type="image/x-icon" href="../img/hzlogo-nobg.jpg">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" type="image/x-icon" href="img/hzlogo-nobg.jpg">">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="img/hzlogo-nobg.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
 </head>
 
 <body>
-    <nav class="navbar">
+    <nav class="navbar" data-aos="fade-down">
         <ul class="nav-links">
             <li><a class="nav-links_items" href="../index.html">Home</a></li>
-            <li><a class="nav-links_items" href="#home">Profile</a></li>
+            <li><a class="nav-links_items" href="../profile/index.html">Profile</a></li>
             <li><a class="nav-links_items" href="../dashboard/index.html">Dashboard</a></li>
-            <li><a class="nav-links_items" href="../faq/dashboard/index.html">FAQ</a></li>
+            <li><a class="nav-links_items" href="#home">FAQ</a></li>
             <li><a class="nav-links_items" href="../blog/index.html">Blog</a></li>
         </ul>
     </nav>
 
-    <header class="header" id="home">
-        <div class="header-wrap">
-            <div>
-                <img class="pfp" src="../img/me2.png" alt="pfp">
-            </div>
-            <div>
-                <h1 class="header-name">Hey, I’m Volodymyr</h1>
-                <p class="short-dscr">Curious programmer, tech enthusiast, and lifelong learner. Always working on new
-                    projects and ideas.</p>
-            </div>
-            <div class="header-links">
-                <img class="header-img" src="../img/inst.png" alt="qrinst">
-                <a class="about-me_btn" href="#readmore">Read more</a>
-            </div>
-        </div>
-    </header>
+    <section class="faq" id="home" data-aos="fade-in">
+        <h2>FAQ</h2>
+    
+        <details>
+            <summary>How can you print a document from your laptop at HZ?</summary>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto explicabo nam enim unde, provident maiores iure vitae debitis corrupti quia.</p>
+        </details>
 
-    <section class="readmore" id="readmore">
-        <h1 class="read-title">About me</h1>
-        <p class="wict-content">
-            My name is Volodymyr, I am 16 years old and originally from Ukraine. I became curious about programming when
-            I was around 12–13 years old. I started with Python by following tutorials and building a simple calculator,
-            later exploring C++ where I even created a small Snake game. After a few breaks and restarts, I returned to
-            coding through web development with HTML, CSS, and JavaScript, and since then I have been lea
-            rning
-            independently through online courses and projects.
-        </p>
-        <p class="wict-content">
-            Beyond technology, I am also a car enthusiast who loves driving and learning about vehicles. My favorite
-            movie series is Fast & Furious, and I enjoy the show Silicon Valley for its humor and insights into the tech
-            world. I chose to study ICT because it combines my love for creativity, problem-solving, and technology, and
-            I am excited to continue building my skills at HZ University of Applied Sciences.
-        </p>
+        <details>
+            <summary>How can you scan a document and send it to your laptop at HZ?</summary>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto explicabo nam enim unde, provident maiores iure vitae debitis corrupti quia.</p>
+        </details>
+
+        <details>
+            <summary>How can I buy something (like when I sign up for the IT introduction event) on the HZ web shop?</summary>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto explicabo nam enim unde, provident maiores iure vitae debitis corrupti quia.</p>
+        </details>
+
+        <details>
+            <summary>How can you book a project space?</summary>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto explicabo nam enim unde, provident maiores iure vitae debitis corrupti quia.</p>
+        </details>
+
+        <details>
+            <summary>What are the instructions if you want to park your car at the HZ parking lot?</summary>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto explicabo nam enim unde, provident maiores iure vitae debitis corrupti quia.</p>
+        </details>
     </section>
 
-    <section class="readmore">
-        <h1 class="read-title">Skills</h1>
-        <div class="skills">
-            <div class="why-hz">
-                <ul>
-                    <h2>Programming</h2>
-                    <li>HTML (Good)</li>
-                    <li>CSS (Good)</li>
-                    <li>C# (Beginer)</li>
-                    <li>C++ (Pre Beginer)</li>
-                </ul>
-            </div>
-            <div class="why-hz">
-                <ul>
-                    <h2>Languages</h2>
-                    <li>Ukrainian (Native)</li>
-                    <li>Russian (C2)</li>
-                    <li>Polish (C1)</li>
-                    <li>English (B2)</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <footer>
+    <footer data-aos="fade-up">
         <a class="footer-links" target="_blank" href="https://www.instagram.com/volosych08?igsh=NWM5em9zd2hweHg="><img
                 src="../img/instagram.png" alt="inst"></a>
         <a class="footer-links" target="_blank" href="https://github.com/volosych08"><img src="../img/github.png"
                 alt="github"></a>
     </footer>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 </body>
 
 </html>
