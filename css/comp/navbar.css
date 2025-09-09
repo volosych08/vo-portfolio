@@ -37,7 +37,7 @@
     left: 50%;
     width: 0;
     height: 2px;
-    background-color: #14B8A6;
+    background-color: #2B4593;
     opacity: 0;
     transform: translateX(-50%);
     transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out;
@@ -63,5 +63,5 @@
 }
 
 .nav-links_items:hover {
-    color: #14B8A6 !important;
+    color: #2B4593 !important;
 }
