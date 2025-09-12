@@ -21,7 +21,7 @@ body{
     overflow-x: hidden;
 } 
 
-p, a, li{
+p, a, li, td{
     color: #f1f1f1 !important;
     font-family: "Roboto", sans-serif !important;
 }
