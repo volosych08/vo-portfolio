@@ -15,6 +15,10 @@ footer {
     gap: 40px;                 
 }
 
+#footer-faq {
+    margin-bottom: 40px;
+}
+
 .footer-links img {
     width: 45px;  
     height: auto;
