@@ -1,0 +1,80 @@
+{% extends "partials/base.html.twig" %}
+
+{% set pageTitle = "Home" %}
+
+{% block content %}
+    <header class="header" id="home" data-aos="zoom-in">
+        <div class="header-wrap">
+            <div>
+                <a target="_blank" href="https://hz.nl/"><img class="pfp" src="img/hz-logo2.jpg" alt="pfp"></a>
+            </div>
+            <div>
+                <h1 class="header-name" >Why I chose ICT at HZ</h1>
+                <p class="short-dscr">HZ University of Applied Sciences is the place where I can grow as an ICT
+                    professional, develop my technical skills, and connect with like-minded people.</p>
+            </div>
+            <div class="header-links">
+                <a class="about-me_btn" href="#readmore">Read more</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="readmore" id="readmore" data-aos="zoom-in-left">
+        <h1 class="read-title">Why ICT</h1>
+        <div class="wict">
+            <div>
+                <img class="wict-img" src="img/ict.jpg" alt="ict">
+            </div>
+            <div class="wict-paragraphs">
+                <p class="wict-content">I became curious about technology when I was 9. My first experience was with
+                    Python, where I followed tutorials to build a simple calculator. Later, I studied C++ with a tutor
+                    and managed to create a small PC game — Snake. These small projects gave me the excitement of
+                    turning ideas into something real, and that feeling has stayed with me ever since</p>
+                <p class="wict-content">After returning to programming through HTML, CSS, and JavaScript, I realized
+                    that ICT is the perfect field for me. I enjoy solving problems, experimenting with new technologies,
+                    and learning independently from online resources. ICT allows me to combine creativity and logic
+                    while preparing me for a future where technology is essential in every part of life. This is why I
+                    chose the HBO-ICT program at HZ — it will help me turn my passion into professional skills.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="readmore" data-aos="zoom-in-right">
+        <h1 class="read-title">Why HZ</h1>
+        <div class="wict">
+            <div>
+                <img class="wict-img" src="img/hz-building1.jpg" alt="ict">
+            </div>
+            <div class="wict-paragraphs">
+                <div class="why-hz">
+                    <table>
+                        <tr>
+                            <td><strong>Quality of education</strong></td>
+                            <td>HZ is well known for applied sciences and ICT programs.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hands-on learning</strong></td>
+                            <td>Focus on practical coding projects instead of only theory.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Opportunities in NL</strong></td>
+                            <td>The Netherlands is an international tech hub with many career paths.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Personal growth</strong></td>
+                            <td>A supportive, international environment to develop my skills and confidence.</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer data-aos="fade-up">
+        <a class="footer-links" target="_blank" href="https://www.instagram.com/volosych08?igsh=NWM5em9zd2hweHg="><img src="img/instagram.png" alt="inst"></a>
+        <a class="footer-links" target="_blank" href="https://github.com/volosych08"><img src="img/github.png" alt="github"></a>
+    </footer>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+{% endblock %}
