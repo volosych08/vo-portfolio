@@ -5,6 +5,8 @@
 @import "comp/progress.css";
 @import "comp/dashboard.css";
 @import "comp/blog.css";
+@import "comp/sidemenu.css";
+@import "comp/faq.css";
 
 html{
     scroll-behavior: smooth !important;

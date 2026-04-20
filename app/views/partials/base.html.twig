@@ -1,35 +1,46 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <title>Portfolio - {{ pageTitle }}</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="The best of best portfolio website.">
-        <meta name="keywords" content="portfolio, hz, html, css">
-        <meta name="author" content="Volodymyr Osychenko">
-        <link rel="icon" type="image/x-icon" href="img/hzlogo-nobg.jpg">
-        <!-- styles -->
-        <link rel="stylesheet" href="res/reset.css">
-        <link rel="stylesheet" href="res/styles.css">
-        <!-- fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-        <!-- animation -->
-        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    </head>
-    <body>
-    <nav class="navbar" data-aos="fade-down">
-        <ul class="nav-links">
-            <li><a class="nav-links_items" href="/">Home</a></li>
-            <li><a class="nav-links_items" href="/">Profile</a></li>
-            <li><a class="nav-links_items" href="/">Dashboard</a></li>
-            <li><a class="nav-links_items" href="/">FAQ</a></li>
-            <li><a class="nav-links_items" href="/">Blog</a></li>
-        </ul>
-    </nav>
-        <div>
-            {% block content %}{% endblock %}
-        </div>
-    </body>
+<head>
+    <title>Portfolio - {{ pageTitle }}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The best of best portfolio website.">
+    <meta name="keywords" content="portfolio, hz, html, css">
+    <meta name="author" content="Volodymyr Osychenko">
+    <link rel="icon" type="image/x-icon" href="img/hzlogo-nobg.jpg">
+    <!-- styles -->
+    <link rel="stylesheet" href="res/reset.css">
+    <link rel="stylesheet" href="res/styles.css">
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
+    <!-- animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar" data-aos="fade-down">
+    <ul class="nav-links">
+        <li><a class="nav-links_items" href="/">Home</a></li>
+        <li><a class="nav-links_items" href="/profile">Profile</a></li>
+        <li><a class="nav-links_items" href="/dashboard">Dashboard</a></li>
+        <li><a class="nav-links_items" href="/faq">FAQ</a></li>
+        <li><a class="nav-links_items" href="/blog">Blog</a></li>
+    </ul>
+</nav>
+<div>
+    {% block content %}{% endblock %}
+</div>
+<footer data-aos="fade-up">
+    <a class="footer-links" target="_blank" href="https://www.instagram.com/volosych08?igsh=NWM5em9zd2hweHg="><img
+                src="../img/instagram.png" alt="inst"></a>
+    <a class="footer-links" target="_blank" href="https://github.com/volosych08"><img src="../img/github.png"
+                                                                                      alt="github"></a>
+</footer>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
+</body>
 </html>

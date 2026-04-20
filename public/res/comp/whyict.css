@@ -69,6 +69,10 @@
     font-weight: 400;
 }
 
+.wict-content-profile-additional {
+    margin: 50px;
+}
+
 .why-hz {
     margin: 50px auto;
     max-width: 800px;
@@ -105,4 +109,31 @@
     0 1px 1px rgba(255, 255, 255, 0.6),
     0 4px 8px rgba(0, 0, 0, 0.3);
     width: 200px;
+}
+
+.skills{
+    display: flex;
+    justify-content: space-between;
+}
+
+.why-hz h2{
+    font-size: 25px;
+}
+
+.why-hz ul {
+    list-style: disc;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.05);
+    margin: 12px 0;
+    padding: 15px 50px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.why-hz li {
+    margin: 12px 0;
+    padding: 10px 10px;
+    border-radius: 10px;
+    font-size: 18px;
+    line-height: 1.6;
 }
