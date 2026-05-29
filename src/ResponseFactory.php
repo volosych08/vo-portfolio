@@ -6,6 +6,9 @@ class ResponseFactory
 {
     private \Twig\Environment $twig;
 
+    /** @var array<string|int, mixed> */
+    public array $globalContext = [];
+
     public function __construct(bool $debugMode, string $viewsPath)
     {
         $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../' . $viewsPath);
@@ -16,6 +19,19 @@ class ResponseFactory
             $twig->addExtension(new \Twig\Extension\DebugExtension());
         }
         $this->twig = $twig;
+    }
+
+    public function addFunction(string $name, callable $function): void
+    {
+        $this->twig->addFunction(new \Twig\TwigFunction($name, $function));
+    }
+
+    public function addStringFunction(string $name, callable $function): void
+    {
+        $function = function () use ($function) {
+            return new \Twig\Markup($function(), 'UTF-8');
+        };
+        $this->twig->addFunction(new \Twig\TwigFunction($name, $function));
     }
 
     /**
@@ -29,7 +45,7 @@ class ResponseFactory
 
         try {
             $response->responseCode = 200;
-            $response->body = $this->twig->render($view, $context);
+            $response->body = $this->twig->render($view, array_merge($this->globalContext, $context));
             return $response;
         } catch (\Exception $e) {
             $response->responseCode = 500;
@@ -64,6 +80,14 @@ class ResponseFactory
             $response->body = $e->getMessage();
             return $response;
         }
+    }
+
+    public function notAuthorized(): Response
+    {
+        $response = new Response();
+        $response->responseCode = 401;
+        $response->body = "Unauthorized";
+        return $response;
     }
 
     public function redirect(string $url): Response

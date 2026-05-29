@@ -6,6 +6,12 @@ use App\Controllers\DashboardController;
 use App\Controllers\FaqController;
 use App\Controllers\HomeController;
 use App\Controllers\ProfileController;
+use App\Controllers\UserController;
+use App\Middleware\AuthMiddleware;
+use App\Middleware\CsrfMiddleware;
+use App\Repositories\UserRepository;
+use App\Services\AuthService;
+use App\Services\CsrfService;
 use Exception;
 use Framework\Database;
 use Framework\ResponseFactory;
@@ -34,5 +40,18 @@ class ServiceProvider implements ServiceProviderInterface
 
         $faqController = new FaqController($responseFactory);
         $container->set(FaqController::class, $faqController);
+
+        $userRepository = new UserRepository($database);
+
+        $authService = new AuthService($userRepository);
+        $authMiddleware = new AuthMiddleware($authService, $responseFactory);
+        $container->set(AuthMiddleware::class, $authMiddleware);
+
+        $csrfService = new CsrfService($responseFactory);
+        $csrfMiddleware = new CsrfMiddleware($csrfService);
+        $container->set(CsrfMiddleware::class, $csrfMiddleware);
+
+        $userController = new UserController($responseFactory, $userRepository, $authService);
+        $container->set(UserController::class, $userController);
     }
 }
