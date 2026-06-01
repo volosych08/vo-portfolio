@@ -4,8 +4,13 @@
 
 {% block content %}
     <section class="blog" id="home" data-aos="fade-in">
-        <h2>Posts</h2>
+        <div class="blog-topbar">
+            <h2>Posts</h2>
 
+            {% if user is defined and user and user.role == 'admin' %}
+                <a href="/admin/blog/create" class="blog-add-button">+ Add post</a>
+            {% endif %}
+        </div>
         <div class="posts">
             {% for post in posts %}
                 <article class="post">

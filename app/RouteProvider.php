@@ -52,6 +52,18 @@ class RouteProvider implements RouteProviderInterface
             ->addRoute('POST', '/admin/blog/edit/(?<slug>[a-z0-9-]+)', [$blogController, 'update'])
             ->addMiddleware([$authMiddleware, 'requireAdmin']);
 
+        $router
+            ->addRoute('GET', '/admin/blog/create', [$blogController, 'create'])
+            ->addMiddleware([$authMiddleware, 'requireAdmin']);
+
+        $router
+            ->addRoute('POST', '/admin/blog/create', [$blogController, 'store'])
+            ->addMiddleware([$authMiddleware, 'requireAdmin']);
+
+        $router
+            ->addRoute('POST', '/admin/blog/delete/(?<slug>[a-z0-9-]+)', [$blogController, 'delete'])
+            ->addMiddleware([$authMiddleware, 'requireAdmin']);
+
         $csrfMiddleware = $container->get(CsrfMiddleware::class);
         $router->addMiddleware([$csrfMiddleware, 'handle']);
     }

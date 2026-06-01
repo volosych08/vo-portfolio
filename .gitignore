@@ -16,3 +16,4 @@ composer.lock
 ~*
 README.html
 *.pdf
+public/uploads/blog/*
