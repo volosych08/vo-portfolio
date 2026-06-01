@@ -7,6 +7,7 @@
 @import "comp/blog.css";
 @import "comp/sidemenu.css";
 @import "comp/faq.css";
+@import "comp/regestration.css";
 
 html{
     scroll-behavior: smooth !important;

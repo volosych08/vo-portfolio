@@ -1,7 +1,31 @@
 {% extends "partials/base.html.twig" %}
 
-{% set pageTitle = "Profile" %}
+{% set pageTitle = "Blog" %}
 
 {% block content %}
+    <section class="blog" id="home" data-aos="fade-in">
+        <h2>Posts</h2>
 
+        <div class="posts">
+            {% for post in posts %}
+                <article class="post">
+                    <div class="post-image">
+                        <img src="{{ post.cardImage }}" alt="{{ post.title }}">
+                    </div>
+
+                    <div class="post-text">
+                        <h4>{{ post.title }}</h4>
+                        <p>{{ post.excerpt }}</p>
+                    </div>
+
+                    <div class="post-dateRead">
+                        <p>{{ post.publishedAt|date("d.m.Y") }}</p>
+                        <a href="/blog/{{ post.slug }}">Read more</a>
+                    </div>
+                </article>
+            {% else %}
+                <p class="empty-posts-message">No blog posts available yet.</p>
+            {% endfor %}
+        </div>
+    </section>
 {% endblock %}

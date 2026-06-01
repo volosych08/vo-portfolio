@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Controllers\BlogController;
 use App\Controllers\DashboardController;
 use App\Controllers\FaqController;
 use App\Controllers\HomeController;
@@ -34,11 +35,13 @@ class RouteProvider implements RouteProviderInterface
         $router->addRoute('GET', '/faq', [$faqController, "index"]);
 
         $userController = $container->get(UserController::class);
-        $router->addRoute('GET', '/register', [$userController, 'registerForm']);
-        $router->addRoute('POST', '/register', [$userController, 'register']);
         $router->addRoute('GET', '/login', [$userController, 'loginForm']);
         $router->addRoute('POST', '/login', [$userController, 'login']);
         $router->addRoute('GET', '/logout', [$userController, 'logout']);
+
+        $blogController = $container->get(BlogController::class);
+        $router->addRoute('GET', '/blog', [$blogController, 'index']);
+        $router->addRoute('GET', '/blog/(?<slug>[a-z0-9-]+)', [$blogController, 'show']);
 
         $router->addMiddleware([$authMiddleware, 'handle']);
 

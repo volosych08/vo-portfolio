@@ -1,16 +1,23 @@
 {% extends "partials/base.html.twig" %}
 
-{% block content %}
-<form method="POST" action="/login">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-    <div class="card shadow-sm">
-        <div class="card-header">
-            <strong>Log In Now</strong>
-        </div>
+{% set pageTitle = "Login" %}
 
-        <div class="card-body">
+{% block content %}
+    <section class="auth-page">
+        <form method="POST" action="/login" class="auth-card">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+            <div class="auth-header">
+                <p class="auth-eyebrow">Admin access</p>
+                <h1 class="auth-title">Log in</h1>
+                <p class="auth-description">
+                    Access the protected dashboard to manage your portfolio content.
+                </p>
+            </div>
+
             {% if errors %}
-                <div class="row alert alert-danger">
+                <div class="auth-errors">
+                    <strong class="auth-errors-title">Something went wrong</strong>
                     <ul>
                         {% for error in errors %}
                             <li>{{ error }}</li>
@@ -19,20 +26,32 @@
                 </div>
             {% endif %}
 
-            <div class="row mb-3">
-                <div class="col-sm-3 fw-bold"><label for="username">Username</label></div>
-                <div class="col-sm-9"><input type="text" id="username" name="username" class="form-control" value="{{ username }}"></div>
+            <div class="auth-form-group">
+                <label for="username">Username</label>
+                <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        class="auth-input"
+                        value="{{ username|default('') }}"
+                        placeholder="Enter your username"
+                >
             </div>
 
-            <div class="row mb-3">
-                <div class="col-sm-3 fw-bold"><label for="password">Password</label></div>
-                <div class="col-sm-9"><input type="password" id="password" name="password" class="form-control"></div>
+            <div class="auth-form-group">
+                <label for="password">Password</label>
+                <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        class="auth-input"
+                        placeholder="Enter your password"
+                >
             </div>
-        </div>
 
-        <div class="card-footer d-flex gap-2">
-            <input type="submit" value="Log In" class="btn btn-primary">
-        </div>
-    </div>
-</form>
+            <button type="submit" class="auth-button">
+                Log in
+            </button>
+        </form>
+    </section>
 {% endblock %}

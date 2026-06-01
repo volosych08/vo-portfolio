@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Controllers\BlogController;
 use App\Controllers\DashboardController;
 use App\Controllers\FaqController;
 use App\Controllers\HomeController;
@@ -9,6 +10,8 @@ use App\Controllers\ProfileController;
 use App\Controllers\UserController;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\CsrfMiddleware;
+use App\Repositories\BlogRepository;
+use App\Repositories\BlogRepositoryInterface;
 use App\Repositories\UserRepository;
 use App\Services\AuthService;
 use App\Services\CsrfService;
@@ -51,7 +54,13 @@ class ServiceProvider implements ServiceProviderInterface
         $csrfMiddleware = new CsrfMiddleware($csrfService);
         $container->set(CsrfMiddleware::class, $csrfMiddleware);
 
-        $userController = new UserController($responseFactory, $userRepository, $authService);
+        $userController = new UserController($responseFactory, $authService);
         $container->set(UserController::class, $userController);
+
+        $blogRepository = new BlogRepository($database);
+        $container->set(BlogRepositoryInterface::class, $blogRepository);
+
+        $blogController = new BlogController($responseFactory, $blogRepository);
+        $container->set(BlogController::class, $blogController);
     }
 }

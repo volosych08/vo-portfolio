@@ -7,7 +7,4 @@ CREATE TABLE users (
 );
 
 INSERT INTO users (id, username, password, name, role) VALUES
-   (1, 'gandalf', '', 'Gandalf the Grey', 'admin'),
-    (2, 'sam', '', 'Samwise Gamgee', 'user'),
-    (3, 'merry', '', 'Meriadoc Brandybuck', 'user'),
-    (4, 'pippin', '', 'Peregrin Took', 'user');
+   (1, 'vova', '$2a$12$GyZ821AVxFY9.eXgDUl7YO4SunTQPFBj.4Zl2j.FtPtB.rGc6TNKq', 'Volodymyr', 'admin');
