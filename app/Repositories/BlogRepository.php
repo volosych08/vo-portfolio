@@ -85,6 +85,21 @@ class BlogRepository implements BlogRepositoryInterface
         return $this->fromDbRow($stmt);
     }
 
+    public function findBySlug(string $slug): ?BlogPost
+    {
+        $stmt = $this->database
+            ->run("SELECT * FROM blog_posts WHERE slug = :slug", [
+                "slug" => $slug,
+            ])
+            ->fetch();
+
+        if (!$stmt) {
+            return null;
+        }
+
+        return $this->fromDbRow($stmt);
+    }
+
     public function insert(BlogPost $post): BlogPost
     {
         $this->database->run(

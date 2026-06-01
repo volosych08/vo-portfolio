@@ -12,6 +12,7 @@ interface BlogRepositoryInterface
     /** @return BlogPost[] */
     public function findPublished(): array;
     public function findPublishedBySlug(string $slug): ?BlogPost;
+    public function findBySlug(string $slug): ?BlogPost;
     public function insert(BlogPost $post): BlogPost;
     public function update(BlogPost $post): ?BlogPost;
     public function delete(BlogPost $post): bool;

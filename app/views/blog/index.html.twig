@@ -18,9 +18,22 @@
                         <p>{{ post.excerpt }}</p>
                     </div>
 
-                    <div class="post-dateRead">
-                        <p>{{ post.publishedAt|date("d.m.Y") }}</p>
-                        <a href="/blog/{{ post.slug }}">Read more</a>
+                    <div class="post-footer">
+                        {% if user is defined and user and user.role == 'admin' %}
+                            <p class="post-status post-status-{{ post.status }}">
+                                Status: {{ post.status }}
+                            </p>
+                        {% endif %}
+
+                        <div class="post-actions">
+                            <p>{{ post.publishedAt|date("d.m.Y") }}</p>
+
+                            {% if user is defined and user and user.role == 'admin' %}
+                                <a href="/admin/blog/edit/{{ post.slug }}">Edit</a>
+                            {% endif %}
+
+                            <a href="/blog/{{ post.slug }}">Read more</a>
+                        </div>
                     </div>
                 </article>
             {% else %}

@@ -34,6 +34,8 @@ class RouteProvider implements RouteProviderInterface
         $faqController = $container->get(FaqController::class);
         $router->addRoute('GET', '/faq', [$faqController, "index"]);
 
+        $router->addMiddleware([$authMiddleware, 'handle']);
+
         $userController = $container->get(UserController::class);
         $router->addRoute('GET', '/login', [$userController, 'loginForm']);
         $router->addRoute('POST', '/login', [$userController, 'login']);
@@ -42,8 +44,13 @@ class RouteProvider implements RouteProviderInterface
         $blogController = $container->get(BlogController::class);
         $router->addRoute('GET', '/blog', [$blogController, 'index']);
         $router->addRoute('GET', '/blog/(?<slug>[a-z0-9-]+)', [$blogController, 'show']);
+        $router
+            ->addRoute('GET', '/admin/blog/edit/(?<slug>[a-z0-9-]+)', [$blogController, 'edit'])
+            ->addMiddleware([$authMiddleware, 'requireAdmin']);
 
-        $router->addMiddleware([$authMiddleware, 'handle']);
+        $router
+            ->addRoute('POST', '/admin/blog/edit/(?<slug>[a-z0-9-]+)', [$blogController, 'update'])
+            ->addMiddleware([$authMiddleware, 'requireAdmin']);
 
         $csrfMiddleware = $container->get(CsrfMiddleware::class);
         $router->addMiddleware([$csrfMiddleware, 'handle']);

@@ -226,6 +226,221 @@
     background: rgba(255, 255, 255, 0.08);
 }
 
+.blog-edit-page {
+    width: 70%;
+    margin: 20px auto 80px;
+}
+
+.blog-edit-card {
+    padding: 36px;
+    background: rgba(169, 169, 176, 0.52);
+    border-radius: 24px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.3px);
+    -webkit-backdrop-filter: blur(7.3px);
+    border: 1px solid rgba(169, 169, 176, 1);
+}
+
+.blog-edit-header {
+    text-align: center;
+    margin-bottom: 34px;
+}
+
+.blog-edit-header h1 {
+    margin: 18px 0 12px;
+}
+
+.blog-edit-header p {
+    font-size: 18px;
+    opacity: 0.85;
+}
+
+.blog-edit-form {
+    width: min(900px, 100%);
+    margin: 0 auto;
+}
+
+.blog-edit-group {
+    margin-bottom: 24px;
+}
+
+.blog-edit-group label {
+    display: block;
+    margin-bottom: 10px;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.blog-edit-input,
+.blog-edit-textarea {
+    width: 100%;
+    padding: 16px 18px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.36);
+    background: rgba(255, 255, 255, 0.10);
+    color: #ffffff;
+    font-size: 16px;
+    font-family: "Roboto", sans-serif;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.blog-edit-input:focus,
+.blog-edit-textarea:focus {
+    border-color: #5f7df0;
+    background: rgba(255, 255, 255, 0.16);
+    box-shadow: 0 0 0 4px rgba(43, 69, 147, 0.24);
+}
+
+.blog-edit-textarea-small {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.blog-edit-textarea-large {
+    min-height: 420px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.blog-edit-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 18px;
+    margin-top: 30px;
+}
+
+.blog-edit-cancel,
+.blog-edit-save {
+    padding: 13px 20px;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 800;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.blog-edit-cancel {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.blog-edit-preview {
+    display: block;
+    width: 220px;
+    max-height: 140px;
+    object-fit: cover;
+    margin: 0 0 14px;
+    border-radius: 14px;
+    border: 2px solid #E5E7EB;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.blog-edit-save {
+    border: none;
+    background: linear-gradient(135deg, #2B4593, #3b61d6);
+    color: #ffffff;
+}
+
+.blog-edit-save:hover,
+.blog-edit-cancel:hover {
+    transform: translateY(-2px);
+}
+
+.blog-edit-errors {
+    width: min(900px, 100%);
+    margin: 0 auto 24px;
+    padding: 16px 18px;
+    border-radius: 16px;
+    background: rgba(197, 48, 48, 0.22);
+    border: 1px solid rgba(255, 120, 120, 0.55);
+    color: #ffffff;
+}
+
+.post-footer {
+    margin-top: auto;
+    padding: 18px 20px 24px;
+}
+
+.post-status {
+    width: fit-content;
+    margin: 0 auto 14px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: capitalize;
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.post-status-draft {
+    background: rgba(183, 121, 31, 0.35);
+    border-color: rgba(183, 121, 31, 0.75);
+}
+
+.post-status-published {
+    background: rgba(47, 133, 90, 0.35);
+    border-color: rgba(47, 133, 90, 0.75);
+}
+
+.post-actions {
+    display: flex;
+    gap: 18px;
+    font-size: 16px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.post-actions p {
+    margin: 0 8px 0 0;
+    white-space: nowrap;
+}
+
+.post-actions a {
+    text-decoration: none;
+    background: linear-gradient(135deg, #2B4593, #3b61d6);
+    color: #fff !important;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-weight: 800;
+    transition: all 250ms ease-out;
+}
+
+.post-actions a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(43, 69, 147, 0.35);
+}
+
+.blog-edit-errors ul {
+    margin: 8px 0 0;
+    padding-left: 20px;
+}
+
+@media (max-width: 800px) {
+    .blog-edit-page {
+        width: 90%;
+    }
+
+    .blog-edit-card {
+        padding: 26px;
+    }
+
+    .blog-edit-actions {
+        flex-direction: column;
+    }
+
+    .blog-edit-cancel,
+    .blog-edit-save {
+        width: 100%;
+        text-align: center;
+    }
+}
+
 @media (max-width: 1200px) {
     .posts {
         grid-template-columns: repeat(2, minmax(0, 1fr));
