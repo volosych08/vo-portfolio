@@ -1,0 +1,95 @@
+{% extends "partials/base.html.twig" %}
+
+{% set pageTitle = "Edit Profile" %}
+
+{% block content %}
+    <section class="blog-edit-page">
+        <div class="blog-edit-card">
+            <div class="blog-edit-header">
+                <a href="/profile" class="blog-back-link">← Back to profile</a>
+                <h1>Edit Profile</h1>
+                <p>Manage the professional biographical information shown to visitors.</p>
+            </div>
+
+            {% if errors is defined and errors %}
+                <div class="blog-edit-errors">
+                    <strong>Please check the form</strong>
+                    <ul>
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <form method="POST" action="/admin/profile/edit" class="blog-edit-form">
+                {{ csrf_input() }}
+
+                <div class="blog-edit-group">
+                    <label for="about_me_title">About me title</label>
+                    <input
+                            type="text"
+                            id="about_me_title"
+                            name="about_me_title"
+                            value="{{ aboutMe.title }}"
+                            class="blog-edit-input"
+                    >
+                </div>
+
+                <div class="blog-edit-group">
+                    <label for="about_me_content">About me content</label>
+                    <textarea
+                            id="about_me_content"
+                            name="about_me_content"
+                            class="blog-edit-textarea blog-edit-textarea-large"
+                    >{{ aboutMe.content }}</textarea>
+                </div>
+
+                <div class="blog-edit-group">
+                    <label for="programming_skills_title">Programming skills title</label>
+                    <input
+                            type="text"
+                            id="programming_skills_title"
+                            name="programming_skills_title"
+                            value="{{ programmingSkills.title }}"
+                            class="blog-edit-input"
+                    >
+                </div>
+
+                <div class="blog-edit-group">
+                    <label for="programming_skills_content">Programming skills</label>
+                    <textarea
+                            id="programming_skills_content"
+                            name="programming_skills_content"
+                            class="blog-edit-textarea blog-edit-textarea-small"
+                    >{{ programmingSkills.content }}</textarea>
+                </div>
+
+                <div class="blog-edit-group">
+                    <label for="languages_title">Languages title</label>
+                    <input
+                            type="text"
+                            id="languages_title"
+                            name="languages_title"
+                            value="{{ languages.title }}"
+                            class="blog-edit-input"
+                    >
+                </div>
+
+                <div class="blog-edit-group">
+                    <label for="languages_content">Languages</label>
+                    <textarea
+                            id="languages_content"
+                            name="languages_content"
+                            class="blog-edit-textarea blog-edit-textarea-small"
+                    >{{ languages.content }}</textarea>
+                </div>
+
+                <div class="blog-edit-actions">
+                    <a href="/profile" class="blog-edit-cancel">Cancel</a>
+                    <button type="submit" class="blog-edit-save">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}

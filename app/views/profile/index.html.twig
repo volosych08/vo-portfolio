@@ -6,57 +6,65 @@
     <header class="header" id="home" data-aos="fade-in">
         <div class="header-wrap">
             <div>
-                <img class="pfp" src="../img/me2.png" alt="pfp">
+                <img class="pfp" src="/img/me2.png" alt="pfp">
             </div>
+
             <div>
                 <h1 class="header-name">Hey, I’m Volodymyr</h1>
-                <p class="short-dscr">Curious programmer, tech enthusiast, and lifelong learner. Always working on new
-                    projects and ideas.</p>
+                <p class="short-dscr">
+                    Curious programmer, tech enthusiast, and lifelong learner. Always working on new
+                    projects and ideas.
+                </p>
             </div>
+
             <div class="header-links">
-                <img class="header-img" src="../img/inst.png" alt="qrinst">
+                <img class="header-img" src="/img/inst.png" alt="qrinst">
                 <a class="about-me_btn" href="#readmore">Read more</a>
+
+                {% if user is defined and user and user.role == 'admin' %}
+                    <a class="about-me_btn" href="/admin/profile/edit">Edit profile</a>
+                {% endif %}
             </div>
         </div>
     </header>
 
-    <section class="readmore" id="readmore" data-aos="fade-in">
-        <h1 class="read-title">About me</h1>
+    <section class="readmore profile-editable-section" id="readmore" data-aos="fade-in">
+        {% if user is defined and user and user.role == 'admin' %}
+            <a href="/admin/profile/edit" class="profile-edit-button">Edit</a>
+        {% endif %}
+
+        <h1 class="read-title">{{ aboutMe.title }}</h1>
+
         <p class="wict-content wict-content-profile-additional">
-            My name is Volodymyr, I am 17 years old and originally from Ukraine. I became curious about programming when
-            I was around 9 years old. I started with Python by following tutorials and building a simple calculator,
-            later exploring C++ where I even created a small Snake game. After a few breaks and restarts, I returned to
-            coding through web development with HTML, CSS, and JavaScript, and since then I have been lea
-            rning
-            independently through online courses and projects.
-        </p>
-        <p class="wict-content wict-content-profile-additional">
-            Beyond technology, I am also a car enthusiast who loves driving and learning about vehicles. My favorite
-            movie series is Fast & Furious, and I enjoy the show Silicon Valley for its humor and insights into the tech
-            world. I chose to study ICT because it combines my love for creativity, problem-solving, and technology, and
-            I am excited to continue building my skills at HZ University of Applied Sciences.
+            {{ aboutMe.content|nl2br }}
         </p>
     </section>
 
-    <section class="readmore" data-aos="fade-in">
+    <section class="readmore profile-editable-section" data-aos="fade-in">
         <h1 class="read-title">Skills</h1>
+
         <div class="skills">
             <div class="why-hz">
                 <ul>
-                    <h2>Programming</h2>
-                    <li>HTML (Good)</li>
-                    <li>CSS (Good)</li>
-                    <li>C# (Beginer)</li>
-                    <li>C++ (Pre Beginer)</li>
+                    <h2>{{ programmingSkills.title }}</h2>
+
+                    {% for skill in programmingSkills.content|split("\n") %}
+                        {% if skill|trim is not empty %}
+                            <li>{{ skill }}</li>
+                        {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
+
             <div class="why-hz">
                 <ul>
-                    <h2>Languages</h2>
-                    <li>Ukrainian (Native)</li>
-                    <li>Russian (C2)</li>
-                    <li>Polish (C1)</li>
-                    <li>English (B2)</li>
+                    <h2>{{ languages.title }}</h2>
+
+                    {% for language in languages.content|split("\n") %}
+                        {% if language|trim is not empty %}
+                            <li>{{ language }}</li>
+                        {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
         </div>

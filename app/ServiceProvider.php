@@ -12,6 +12,8 @@ use App\Middleware\AuthMiddleware;
 use App\Middleware\CsrfMiddleware;
 use App\Repositories\BlogRepository;
 use App\Repositories\BlogRepositoryInterface;
+use App\Repositories\ProfileRepository;
+use App\Repositories\ProfileRepositoryInterface;
 use App\Repositories\UserRepository;
 use App\Services\AuthService;
 use App\Services\CsrfService;
@@ -34,9 +36,6 @@ class ServiceProvider implements ServiceProviderInterface
 
         $homeController = new HomeController($responseFactory);
         $container->set(HomeController::class, $homeController);
-
-        $profileController = new ProfileController($responseFactory);
-        $container->set(ProfileController::class, $profileController);
 
         $dashboardController = new DashboardController($responseFactory);
         $container->set(DashboardController::class, $dashboardController);
@@ -62,5 +61,11 @@ class ServiceProvider implements ServiceProviderInterface
 
         $blogController = new BlogController($responseFactory, $blogRepository);
         $container->set(BlogController::class, $blogController);
+
+        $profileRepository = new ProfileRepository($database);
+        $container->set(ProfileRepositoryInterface::class, $profileRepository);
+
+        $profileController = new ProfileController($responseFactory, $profileRepository);
+        $container->set(ProfileController::class, $profileController);
     }
 }

@@ -141,11 +141,16 @@ INSERT INTO blog_posts (
           </tbody>
       </table>
 
-      <h3>Progress</h3>
-      <ul>
-          <li>Evaluation of pitch and website received - 3/3</li>
-          <li>Evaluation of pitch and website given - 3/3</li>
-      </ul>',
+      <h2>Progress</h2>
+            <h3>Evaluation of pitch and website recived - 3/3</h3>
+            <div class="progress-container">
+                <div class="progress-bar" style="width: 100%;">3</div>
+            </div>
+            <h3>Evaluation of pitch and website given - 3/3</h3>
+            <div class="progress-container">
+                <div class="progress-bar" style="width: 100%;">3</div>
+            </div>
+            </div>',
           'published',
           '/img/feedback.jpg',
           '/img/feedback.webp',
