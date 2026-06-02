@@ -1,0 +1,21 @@
+{% extends "partials/base.html.twig" %}
+
+{% set pageTitle = post.title %}
+
+{% block content %}
+    <section class="blog-post-page" data-aos="fade-in">
+        <a href="/blog" class="blog-back-link">← Back to blog</a>
+
+        <article class="blog-post-detail">
+            <h1>{{ post.title }}</h1>
+
+            <p class="blog-post-date">{{ post.publishedAt|date("d.m.Y") }}</p>
+
+            <img src="{{ post.heroImage }}" alt="{{ post.title }}" class="blog-post-hero">
+
+            <div class="blog-post-content">
+                {{ post.content|raw }}
+            </div>
+        </article>
+    </section>
+{% endblock %}

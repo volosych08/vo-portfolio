@@ -1,0 +1,80 @@
+{% extends "partials/base.html.twig" %}
+
+{% set pageTitle = "Edit Grades" %}
+
+{% block content %}
+
+    <section class="dashboard" id="home" data-aos="fade-in">
+        <div class="dashboard-topbar">
+            <h2>Edit Grades</h2>
+
+            <a href="/dashboard" class="dashboard-edit-button">
+                Back to dashboard
+            </a>
+        </div>
+
+        {% if errors is defined and errors %}
+            <div class="dashboard-errors">
+                <strong>Please check the form</strong>
+
+                <ul>
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <form method="POST" action="/admin/dashboard/grades">
+            {{ csrf_input() }}
+
+            <table>
+                <tr>
+                    <td>Quartile</td>
+                    <td>Course</td>
+                    <td>Exam</td>
+                    <td>Exam Date</td>
+                    <td>Earnable Credits</td>
+                    <td>Grade</td>
+                </tr>
+
+                {% for assessment in assessments %}
+                    <tr>
+                        <td>{{ assessment.quartile }}</td>
+
+                        <td>
+                            {{ assessment.courseName }} - {{ assessment.courseCode }}
+                        </td>
+
+                        <td>{{ assessment.examName }}</td>
+                        <td>{{ assessment.examDate }}</td>
+                        <td>{{ assessment.earnableCredits }}</td>
+
+                        <td>
+                            <input
+                                    type="number"
+                                    name="grades[{{ assessment.id }}]"
+                                    value="{% if assessment.grade is not null %}{{ assessment.grade }}{% endif %}"
+                                    min="1"
+                                    max="10"
+                                    step="0.1"
+                                    class="dashboard-grade-input"
+                                    placeholder="-"
+                            >
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6">No study assessments available yet.</td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+            <div class="dashboard-edit-actions">
+                <a href="/dashboard" class="dashboard-cancel-button">Cancel</a>
+                <button type="submit" class="dashboard-save-button">Save grades</button>
+            </div>
+        </form>
+    </section>
+
+{% endblock %}

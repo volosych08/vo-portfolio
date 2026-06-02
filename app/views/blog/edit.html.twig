@@ -1,0 +1,165 @@
+{% extends "partials/base.html.twig" %}
+
+{% set pageTitle = "Edit Blog Post" %}
+
+{% block content %}
+    <section class="blog-edit-page">
+        <div class="blog-edit-card">
+            <div class="blog-edit-header">
+                <a href="/blog/{{ post.slug }}" class="blog-back-link">← Back to post</a>
+                <h1>Edit Post</h1>
+                <p>Modify the blog post content and save the changes.</p>
+            </div>
+
+            {% if errors is defined and errors %}
+                <div class="blog-edit-errors">
+                    <strong>Please check the form</strong>
+                    <ul>
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <form method="POST" action="/admin/blog/edit/{{ post.slug }}" class="blog-edit-form" enctype="multipart/form-data">
+                {{ csrf_input() }}
+
+                <div class="blog-edit-group">
+                    <label for="title">Title</label>
+                    <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            value="{{ post.title }}"
+                            class="blog-edit-input"
+                    >
+                </div>
+
+                <div class="blog-edit-group">
+                    <label for="slug">Slug</label>
+                    <input
+                            type="text"
+                            id="slug"
+                            name="slug"
+                            value="{{ post.slug }}"
+                            class="blog-edit-input"
+                    >
+                </div>
+
+                <div class="blog-edit-group">
+                    <label for="excerpt">Excerpt</label>
+                    <textarea
+                            id="excerpt"
+                            name="excerpt"
+                            class="blog-edit-textarea blog-edit-textarea-small"
+                    >{{ post.excerpt }}</textarea>
+                </div>
+
+                <div class="blog-edit-group">
+                    <label for="content">Content</label>
+                    <textarea
+                            id="content"
+                            name="content"
+                            class="blog-edit-textarea blog-edit-textarea-large"
+                    >{{ post.content }}</textarea>
+                </div>
+
+                <div class="blog-edit-group">
+                    <label>Current card image</label>
+                    <img src="{{ post.cardImage }}" alt="{{ post.title }}" class="blog-edit-preview">
+
+                    <label for="card_image_upload">Change card image</label>
+                    <input
+                            type="file"
+                            id="card_image_upload"
+                            name="card_image_upload"
+                            class="blog-edit-input"
+                            accept="image/jpeg,image/png,image/webp"
+                    >
+                </div>
+
+                <div class="blog-edit-group">
+                    <label>Current hero image</label>
+                    <img src="{{ post.heroImage }}" alt="{{ post.title }}" class="blog-edit-preview">
+
+                    <label for="hero_image_upload">Change hero image</label>
+                    <input
+                            type="file"
+                            id="hero_image_upload"
+                            name="hero_image_upload"
+                            class="blog-edit-input"
+                            accept="image/jpeg,image/png,image/webp"
+                    >
+                </div>
+
+                <div class="blog-edit-group">
+                    <label for="status">Status</label>
+                    <select id="status" name="status" class="blog-edit-input">
+                        <option value="draft" {% if post.status == 'draft' %}selected{% endif %}>Draft</option>
+                        <option value="published" {% if post.status == 'published' %}selected{% endif %}>Published</option>
+                    </select>
+                </div>
+
+                <div class="blog-edit-actions">
+                    <button type="button" class="blog-edit-delete" id="openDeleteModal">
+                        Delete post
+                    </button>
+
+                    <a href="/blog/{{ post.slug }}" class="blog-edit-cancel">Cancel</a>
+
+                    <button type="submit" class="blog-edit-save">
+                        Save changes
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="delete-modal" id="deleteModal">
+            <div class="delete-modal-card">
+                <h2>Delete post?</h2>
+
+                <p>
+                    Are you sure you want to delete this post?
+                </p>
+
+                <p class="delete-modal-slug">
+                    {{ post.slug }}
+                </p>
+
+                <div class="delete-modal-actions">
+                    <button type="button" class="blog-edit-cancel" id="closeDeleteModal">
+                        Cancel
+                    </button>
+
+                    <form method="POST" action="/admin/blog/delete/{{ post.slug }}">
+                        {{ csrf_input() }}
+
+                        <button type="submit" class="blog-edit-delete">
+                            Yes, delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const openDeleteModal = document.getElementById('openDeleteModal');
+            const closeDeleteModal = document.getElementById('closeDeleteModal');
+            const deleteModal = document.getElementById('deleteModal');
+
+            openDeleteModal.addEventListener('click', () => {
+                deleteModal.classList.add('delete-modal-visible');
+            });
+
+            closeDeleteModal.addEventListener('click', () => {
+                deleteModal.classList.remove('delete-modal-visible');
+            });
+
+            deleteModal.addEventListener('click', (event) => {
+                if (event.target === deleteModal) {
+                    deleteModal.classList.remove('delete-modal-visible');
+                }
+            });
+        </script>
+    </section>
+{% endblock %}

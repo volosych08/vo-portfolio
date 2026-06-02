@@ -1,0 +1,30 @@
+{% extends "partials/base.html.twig" %}
+
+{% set pageTitle = "3D Projects" %}
+
+{% block content %}
+    <section class="three-project-page">
+        <div class="three-project-header">
+            <h1>Interactive Project Showcase</h1>
+            <p>Explore my projects through an interactive 3D laptop.</p>
+        </div>
+
+        <div class="laptop-fullscreen-wrapper" id="laptopFullscreenWrapper">
+            <button type="button" class="laptop-fullscreen-button" id="laptopFullscreenButton">
+                Full screen
+            </button>
+
+            <canvas id="laptopCanvas"></canvas>
+        </div>
+    </section>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module" src="/js/laptopModel.js"></script>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "partials/base.html.twig" %}
+
+{% set pageTitle = "Login" %}
+
+{% block content %}
+    <section class="auth-page">
+        <form method="POST" action="/login" class="auth-card">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+            <div class="auth-header">
+                <p class="auth-eyebrow">Admin access</p>
+                <h1 class="auth-title">Log in</h1>
+                <p class="auth-description">
+                    Access the protected dashboard to manage your portfolio content.
+                </p>
+            </div>
+
+            {% if errors %}
+                <div class="auth-errors">
+                    <strong class="auth-errors-title">Something went wrong</strong>
+                    <ul>
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <div class="auth-form-group">
+                <label for="username">Username</label>
+                <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        class="auth-input"
+                        value="{{ username|default('') }}"
+                        placeholder="Enter your username"
+                >
+            </div>
+
+            <div class="auth-form-group">
+                <label for="password">Password</label>
+                <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        class="auth-input"
+                        placeholder="Enter your password"
+                >
+            </div>
+
+            <button type="submit" class="auth-button">
+                Log in
+            </button>
+        </form>
+    </section>
+{% endblock %}

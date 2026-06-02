@@ -137,3 +137,39 @@
     font-size: 18px;
     line-height: 1.6;
 }
+
+.profile-editable-section {
+    position: relative;
+}
+
+.profile-edit-button {
+    position: absolute;
+    top: 28px;
+    right: 32px;
+
+    padding: 11px 18px;
+    border-radius: 14px;
+
+    background: linear-gradient(135deg, #2B4593, #3b61d6);
+    color: #ffffff !important;
+
+    font-size: 16px;
+    font-weight: 800;
+    text-decoration: none;
+
+    transition: 0.25s ease-in-out;
+}
+
+.profile-edit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(43, 69, 147, 0.35);
+}
+
+@media (max-width: 700px) {
+    .profile-edit-button {
+        position: static;
+        display: block;
+        width: fit-content;
+        margin: 0 auto 20px;
+    }
+}
