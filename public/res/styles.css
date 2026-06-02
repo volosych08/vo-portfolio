@@ -8,6 +8,7 @@
 @import "comp/sidemenu.css";
 @import "comp/faq.css";
 @import "comp/regestration.css";
+@import "comp/projects.css";
 
 html{
     scroll-behavior: smooth !important;

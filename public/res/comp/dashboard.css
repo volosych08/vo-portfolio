@@ -86,3 +86,108 @@
     0 1px 1px rgba(255, 255, 255, 0.6),
     0 4px 8px rgba(0, 0, 0, 0.3);
 }
+
+.dashboard-topbar {
+    position: relative;
+}
+
+.dashboard-edit-button {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+
+    padding: 11px 18px;
+    border-radius: 14px;
+
+    background: linear-gradient(135deg, #2B4593, #3b61d6);
+    color: #ffffff !important;
+
+    font-size: 16px;
+    font-weight: 800;
+    text-decoration: none;
+
+    transition: 0.25s ease-in-out;
+}
+
+.dashboard-edit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(43, 69, 147, 0.35);
+}
+
+@media (max-width: 800px) {
+    .dashboard-edit-button {
+        position: static;
+        display: block;
+        width: fit-content;
+        margin: 0 auto 24px;
+    }
+}
+
+.dashboard-grade-input {
+    width: 90px;
+    padding: 10px 12px;
+
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.36);
+
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+
+    font-size: 16px;
+    font-weight: 800;
+    text-align: center;
+
+    outline: none;
+}
+
+.dashboard-grade-input:focus {
+    border-color: #5f7df0;
+    box-shadow: 0 0 0 4px rgba(43, 69, 147, 0.24);
+}
+
+.dashboard-edit-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 18px;
+    margin: 30px 40px 0;
+}
+
+.dashboard-cancel-button,
+.dashboard-save-button {
+    padding: 13px 20px;
+    border-radius: 14px;
+
+    font-size: 16px;
+    font-weight: 800;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.dashboard-cancel-button {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.dashboard-save-button {
+    border: none;
+    background: linear-gradient(135deg, #2B4593, #3b61d6);
+    color: #ffffff;
+}
+
+.dashboard-errors {
+    width: calc(100% - 80px);
+    margin: 0 auto 24px;
+    padding: 16px 18px;
+
+    border-radius: 16px;
+    background: rgba(197, 48, 48, 0.22);
+    border: 1px solid rgba(255, 120, 120, 0.55);
+
+    color: #ffffff;
+}
+
+.dashboard-errors ul {
+    margin: 8px 0 0;
+    padding-left: 20px;
+}

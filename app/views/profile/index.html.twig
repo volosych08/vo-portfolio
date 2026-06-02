@@ -29,10 +29,6 @@
     </header>
 
     <section class="readmore profile-editable-section" id="readmore" data-aos="fade-in">
-        {% if user is defined and user and user.role == 'admin' %}
-            <a href="/admin/profile/edit" class="profile-edit-button">Edit</a>
-        {% endif %}
-
         <h1 class="read-title">{{ aboutMe.title }}</h1>
 
         <p class="wict-content wict-content-profile-additional">

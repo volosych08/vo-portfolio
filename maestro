@@ -33,3 +33,11 @@ if ($argv[1] === 'phpcs') {
 if ($argv[1] === 'deptrac') {
     passthru('php vendor/bin/deptrac --ansi');
 }
+
+if ($argv[1] === 'phpunit') {
+    passthru('./vendor/bin/phpunit --testdox --colors=always tests');
+}
+
+if ($argv[1] === 'xdebug') {
+    run('XDEBUG_MODE=coverage php vendor/bin/phpunit --colors=always --coverage-text');
+}

@@ -16,7 +16,7 @@ class ProfileRepository implements ProfileRepositoryInterface
 
     public function all(): array
     {
-        $stmt = $this->database->run("SELECT * FROM profile_sections ORDER BY idoi")->fetchAll();
+        $stmt = $this->database->run("SELECT * FROM profile_sections ORDER BY id")->fetchAll();
 
         $profiles = [];
 

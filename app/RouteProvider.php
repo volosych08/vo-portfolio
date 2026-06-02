@@ -7,6 +7,7 @@ use App\Controllers\DashboardController;
 use App\Controllers\FaqController;
 use App\Controllers\HomeController;
 use App\Controllers\ProfileController;
+use App\Controllers\ProjectController;
 use App\Controllers\UserController;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\CsrfMiddleware;
@@ -24,6 +25,9 @@ class RouteProvider implements RouteProviderInterface
         $authMiddleware = $container->get(AuthMiddleware::class);
         $homeController = $container->get(HomeController::class);
         $router->addRoute('GET', '/', [$homeController, "index"]);
+
+        $projectController = $container->get(ProjectController::class);
+        $router->addRoute('GET', '/projects', [$projectController, "index"]);
 
         $profileController = $container->get(ProfileController::class);
         $router->addRoute('GET', '/profile', [$profileController, "index"]);
@@ -71,6 +75,18 @@ class RouteProvider implements RouteProviderInterface
 
         $router
             ->addRoute('POST', '/admin/blog/delete/(?<slug>[a-z0-9-]+)', [$blogController, 'delete'])
+            ->addMiddleware([$authMiddleware, 'requireAdmin']);
+
+        $dashboardController = $container->get(DashboardController::class);
+
+        $router->addRoute('GET', '/dashboard', [$dashboardController, 'index']);
+
+        $router
+            ->addRoute('GET', '/admin/dashboard/grades', [$dashboardController, 'edit'])
+            ->addMiddleware([$authMiddleware, 'requireAdmin']);
+
+        $router
+            ->addRoute('POST', '/admin/dashboard/grades', [$dashboardController, 'update'])
             ->addMiddleware([$authMiddleware, 'requireAdmin']);
 
         $csrfMiddleware = $container->get(CsrfMiddleware::class);
