@@ -7,6 +7,7 @@ use App\Controllers\DashboardController;
 use App\Controllers\FaqController;
 use App\Controllers\HomeController;
 use App\Controllers\ProfileController;
+use App\Controllers\ProjectApiController;
 use App\Controllers\ProjectController;
 use App\Controllers\UserController;
 use App\Middleware\AuthMiddleware;
@@ -15,11 +16,14 @@ use App\Repositories\BlogRepository;
 use App\Repositories\BlogRepositoryInterface;
 use App\Repositories\ProfileRepository;
 use App\Repositories\ProfileRepositoryInterface;
+use App\Repositories\ProjectRepository;
+use App\Repositories\ProjectRepositoryInterface;
 use App\Repositories\StudyAssessmentRepository;
 use App\Repositories\StudyAssessmentRepositoryInterface;
 use App\Repositories\UserRepository;
 use App\Services\AuthService;
 use App\Services\CsrfService;
+use App\Services\ImageUploadService;
 use App\Services\StudyProgressService;
 use Exception;
 use Framework\Database;
@@ -37,6 +41,15 @@ class ServiceProvider implements ServiceProviderInterface
         $responseFactory = $container->get(ResponseFactory::class);
 
         $database = $container->get(Database::class);
+
+        $projectRepository = new ProjectRepository($database);
+        $container->set(ProjectRepositoryInterface::class, $projectRepository);
+
+        $uploadImageService = new ImageUploadService();
+        $container->set(ImageUploadService::class, $uploadImageService);
+
+        $projectApiController = new ProjectApiController($responseFactory, $projectRepository);
+        $container->set(ProjectApiController::class, $projectApiController);
 
         $homeController = new HomeController($responseFactory);
         $container->set(HomeController::class, $homeController);
@@ -71,7 +84,7 @@ class ServiceProvider implements ServiceProviderInterface
         $userController = new UserController($responseFactory, $authService);
         $container->set(UserController::class, $userController);
 
-        $projectController = new ProjectController($responseFactory);
+        $projectController = new ProjectController($responseFactory, $projectRepository);
         $container->set(ProjectController::class, $projectController);
 
         $blogRepository = new BlogRepository($database);

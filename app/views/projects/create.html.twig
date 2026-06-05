@@ -1,0 +1,214 @@
+{% extends "partials/base.html.twig" %}
+
+{% set pageTitle = "Create Project" %}
+
+{% block content %}
+    <section class="blog-edit-page">
+        <div class="blog-edit-card">
+            <div class="blog-edit-header">
+                <a href="/projects" class="blog-back-link">← Back to projects</a>
+
+                <h1>Create Project</h1>
+
+                <p>
+                    Add a new project that will appear in the interactive 3D laptop showcase.
+                </p>
+            </div>
+
+            {% if errors is defined and errors %}
+                <div class="blog-edit-errors">
+                    <strong>Please check the form</strong>
+
+                    <ul>
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <form
+                    method="POST"
+                    action="/admin/projects/create"
+                    class="blog-edit-form"
+            >
+                {{ csrf_input() }}
+
+                <div class="blog-edit-group">
+                    <label for="title">Project title</label>
+
+                    <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            class="blog-edit-input"
+                            value="{{ values.title ?? '' }}"
+                            placeholder="Portfolio Website"
+                            required
+                    >
+                </div>
+
+                <div class="blog-edit-group">
+                    <label for="description">Short description</label>
+
+                    <textarea
+                            id="description"
+                            name="description"
+                            class="blog-edit-textarea"
+                            placeholder="A short description used on the project overview card."
+                            required
+                    >{{ values.description ?? '' }}</textarea>
+                </div>
+
+                <div class="blog-edit-group">
+                    <label for="long_description">Long description</label>
+
+                    <textarea
+                            id="long_description"
+                            name="long_description"
+                            class="blog-edit-textarea blog-edit-textarea-large"
+                            placeholder="A detailed description shown after opening the project."
+                            required
+                    >{{ values.long_description ?? '' }}</textarea>
+                </div>
+
+                <div class="blog-edit-group">
+                    <label for="tech">Technology stack</label>
+
+                    <input
+                            type="text"
+                            id="tech"
+                            name="tech"
+                            class="blog-edit-input"
+                            value="{{ values.tech ?? '' }}"
+                            placeholder="PHP, Twig, SQLite, JavaScript"
+                            required
+                    >
+
+                    <small class="blog-edit-help">
+                        Separate technologies with commas.
+                    </small>
+                </div>
+
+                <div class="blog-edit-row">
+                    <div class="blog-edit-group">
+                        <label for="status">Status</label>
+
+                        {% set selectedStatus = values.status ?? 'In Progress' %}
+
+                        <select
+                                id="status"
+                                name="status"
+                                class="blog-edit-input"
+                                required
+                        >
+                            <option
+                                    value="Completed"
+                                    {% if selectedStatus == 'Completed' %}selected{% endif %}
+                            >
+                                Completed
+                            </option>
+
+                            <option
+                                    value="In Progress"
+                                    {% if selectedStatus == 'In Progress' %}selected{% endif %}
+                            >
+                                In Progress
+                            </option>
+
+                            <option
+                                    value="Planned"
+                                    {% if selectedStatus == 'Planned' %}selected{% endif %}
+                            >
+                                Planned
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="blog-edit-group">
+                        <label for="completed_at">Completion date</label>
+
+                        <input
+                                type="date"
+                                id="completed_at"
+                                name="completed_at"
+                                class="blog-edit-input"
+                                value="{{ values.completed_at ?? '' }}"
+                                required
+                        >
+                    </div>
+                </div>
+
+                <div class="blog-edit-row">
+                    <div class="blog-edit-group">
+                        <label for="category">Category</label>
+
+                        <input
+                                type="text"
+                                id="category"
+                                name="category"
+                                class="blog-edit-input"
+                                value="{{ values.category ?? '' }}"
+                                placeholder="Web Development"
+                                required
+                        >
+                    </div>
+
+                    <div class="blog-edit-group">
+                        <label for="sort_order">Sort order</label>
+
+                        <input
+                                type="number"
+                                id="sort_order"
+                                name="sort_order"
+                                class="blog-edit-input"
+                                value="{{ values.sort_order ?? '' }}"
+                                min="1"
+                                step="1"
+                                placeholder="1"
+                                required
+                        >
+                    </div>
+                </div>
+
+                <div class="blog-edit-group">
+                    <label for="image">Image path</label>
+
+                    <input
+                            type="text"
+                            id="image"
+                            name="image"
+                            class="blog-edit-input"
+                            value="{{ values.image ?? '' }}"
+                            placeholder="/uploads/projects/project-image.png"
+                            required
+                    >
+                </div>
+
+                <div class="blog-edit-group">
+                    <label for="url">Project page URL</label>
+
+                    <input
+                            type="text"
+                            id="url"
+                            name="url"
+                            class="blog-edit-input"
+                            value="{{ values.url ?? '' }}"
+                            placeholder="/dashboard"
+                            required
+                    >
+                </div>
+
+                <div class="blog-edit-actions">
+                    <a href="/projects-3d" class="blog-edit-cancel">
+                        Cancel
+                    </a>
+
+                    <button type="submit" class="blog-edit-save">
+                        Create project
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}

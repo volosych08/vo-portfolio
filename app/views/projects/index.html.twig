@@ -3,19 +3,60 @@
 {% set pageTitle = "3D Projects" %}
 
 {% block content %}
-    <section class="three-project-page">
-        <div class="three-project-header">
-            <h1>Interactive Project Showcase</h1>
-            <p>Explore my projects through an interactive 3D laptop.</p>
+    <section class="three-project-page" id="projects">
+        <div class="three-project-topbar">
+            <div class="three-project-header">
+                <h1>Interactive Project Showcase</h1>
+
+                <p>
+                    Explore my projects through an interactive 3D laptop.
+                </p>
+            </div>
+
+            {% if user is defined and user and user.role == 'admin' %}
+                <a href="/admin/projects/create" class="project-add-button">
+                    + Add project
+                </a>
+            {% endif %}
+        </div>
+
+        <div class="laptop-controls-info">
+            <span>Drag to rotate</span>
+            <span>Shift + drag to roll</span>
+            <span>Scroll to zoom</span>
+            <span>Arrow keys to move camera</span>
+            <span>Space to open or close</span>
         </div>
 
         <div class="laptop-fullscreen-wrapper" id="laptopFullscreenWrapper">
-            <button type="button" class="laptop-fullscreen-button" id="laptopFullscreenButton">
+            <div class="laptop-loading" id="laptopLoading" aria-live="polite">
+                Loading interactive laptop...
+            </div>
+
+            <button
+                    type="button"
+                    class="laptop-fullscreen-button"
+                    id="laptopFullscreenButton"
+                    aria-label="Enter fullscreen mode"
+            >
                 Full screen
             </button>
 
-            <canvas id="laptopCanvas"></canvas>
+            <canvas
+                    id="laptopCanvas"
+                    tabindex="0"
+                    role="application"
+                    aria-label="Interactive 3D laptop project showcase"
+            >
+                Your browser does not support the interactive 3D project showcase.
+            </canvas>
         </div>
+
+        <noscript>
+            <p class="three-project-noscript">
+                JavaScript is required to view the interactive project showcase.
+            </p>
+        </noscript>
     </section>
 
     <script type="importmap">
@@ -26,5 +67,6 @@
             }
         }
     </script>
+
     <script type="module" src="/js/laptopModel.js"></script>
 {% endblock %}

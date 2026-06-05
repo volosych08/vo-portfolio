@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { projects } from './projectData.js';
+import { getProjects, getProject } from './projectApi.js';
 import { LaptopScreenUI } from './laptopScreenUi.js';
 
 const canvas = document.getElementById('laptopCanvas');
@@ -81,7 +81,9 @@ function findObjectByName(root, name) {
 
 loader.load(
     '/models/laptop.glb',
-    (gltf) => {
+    async (gltf) => {
+        // your existing code
+
         laptop = gltf.scene;
 
         scene.add(laptop);
@@ -89,6 +91,7 @@ loader.load(
         const box = new THREE.Box3().setFromObject(laptop);
         const center = box.getCenter(new THREE.Vector3());
         const size = box.getSize(new THREE.Vector3());
+        const laptopLoading = document.getElementById('laptopLoading');
 
         laptop.position.x -= center.x;
         laptop.position.y -= center.y;
@@ -114,20 +117,60 @@ loader.load(
         }
 
         if (screenMesh && screenMesh.isMesh) {
-            laptopScreenUI = new LaptopScreenUI(screenCanvas, screenTexture, projects);
-            laptopScreenUI.render();
+            const context = screenCanvas.getContext('2d');
+
+            // Draw something before waiting for the API
+            context.fillStyle = '#0f172a';
+            context.fillRect(0, 0, screenCanvas.width, screenCanvas.height);
+
+            context.fillStyle = '#ffffff';
+            context.font = 'bold 48px Arial';
+            context.fillText('Loading projects...', 60, 120);
+
+            screenTexture.needsUpdate = true;
 
             screenMesh.material = new THREE.MeshBasicMaterial({
                 map: screenTexture,
                 side: THREE.DoubleSide,
                 toneMapped: false,
             });
+
+            try {
+                const projects = await getProjects();
+
+                console.log('Projects loaded for laptop:', projects);
+
+                laptopScreenUI = new LaptopScreenUI(
+                    screenCanvas,
+                    screenTexture,
+                    projects,
+                    getProject
+                );
+
+                laptopScreenUI.render();
+            } catch (error) {
+                console.error('Could not load project data:', error);
+
+                context.fillStyle = '#0f172a';
+                context.fillRect(0, 0, screenCanvas.width, screenCanvas.height);
+
+                context.fillStyle = '#ffffff';
+                context.font = 'bold 44px Arial';
+                context.fillText('Could not load projects', 60, 120);
+
+                context.fillStyle = '#cbd5e1';
+                context.font = '28px Arial';
+                context.fillText('Check the browser console and API endpoint.', 60, 180);
+
+                screenTexture.needsUpdate = true;
+            }
         } else {
-            console.warn('Screen mesh object_7 not found');
+            console.warn('Screen mesh object_7 was not found.');
         }
 
         laptop.traverse((child) => {
             console.log('Object name:', child.name, 'Type:', child.type);
+            laptopLoading?.classList.add('laptop-loading-hidden');
         });
     },
     undefined,
