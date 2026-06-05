@@ -84,13 +84,13 @@ class ServiceProvider implements ServiceProviderInterface
         $userController = new UserController($responseFactory, $authService);
         $container->set(UserController::class, $userController);
 
-        $projectController = new ProjectController($responseFactory, $projectRepository);
+        $projectController = new ProjectController($responseFactory, $projectRepository, $uploadImageService);
         $container->set(ProjectController::class, $projectController);
 
         $blogRepository = new BlogRepository($database);
         $container->set(BlogRepositoryInterface::class, $blogRepository);
 
-        $blogController = new BlogController($responseFactory, $blogRepository);
+        $blogController = new BlogController($responseFactory, $blogRepository, $uploadImageService);
         $container->set(BlogController::class, $blogController);
 
         $profileRepository = new ProfileRepository($database);

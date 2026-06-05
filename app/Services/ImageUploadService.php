@@ -56,10 +56,15 @@ class ImageUploadService
         $fileName = uniqid($safeFolder . '_', true) . '.' . $extension;
         $targetPath = $uploadDir . '/' . $fileName;
 
-        if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
+        if (!$this->moveUploadedFile($file['tmp_name'], $targetPath)) {
             throw new \RuntimeException('Could not save uploaded image.');
         }
 
         return '/uploads/' . $safeFolder . '/' . $fileName;
+    }
+
+    protected function moveUploadedFile(string $from, string $to): bool
+    {
+        return move_uploaded_file($from, $to);
     }
 }

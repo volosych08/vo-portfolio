@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\BlogPost;
 use App\Repositories\BlogRepositoryInterface;
+use App\Services\ImageUploadService;
 use Framework\Request;
 use Framework\Response;
 use Framework\ResponseFactory;
@@ -14,12 +15,16 @@ class BlogController
 
     private BlogRepositoryInterface $blogRepository;
 
+    private ImageUploadService $uploadImageService;
+
     public function __construct(
         ResponseFactory $responseFactory,
-        BlogRepositoryInterface $blogRepository
+        BlogRepositoryInterface $blogRepository,
+        ImageUploadService $uploadImageService
     ) {
         $this->responseFactory = $responseFactory;
         $this->blogRepository = $blogRepository;
+        $this->uploadImageService = $uploadImageService;
     }
 
     public function index(Request $request): Response
@@ -80,38 +85,56 @@ class BlogController
     {
         $errors = $this->validate($request);
 
-        $title = trim($request->get('title') ?? '');
-        $slug = trim($request->get('slug') ?? '');
-        $excerpt = trim($request->get('excerpt') ?? '');
-        $content = trim($request->get('content') ?? '');
-        $status = trim($request->get('status') ?? 'draft');
+        $title = trim((string) ($request->get('title') ?? ''));
+        $slug = trim((string) ($request->get('slug') ?? ''));
+        $excerpt = trim((string) ($request->get('excerpt') ?? ''));
+        $content = trim((string) ($request->get('content') ?? ''));
+        $status = trim((string) ($request->get('status') ?? 'draft'));
 
-        $cardImage = '';
-        $heroImage = '';
+        $values = [
+            'title' => $title,
+            'slug' => $slug,
+            'excerpt' => $excerpt,
+            'content' => $content,
+            'status' => $status,
+        ];
 
-        if (empty($errors)) {
-            $cardImage = $this->uploadBlogImage('card_image_upload', '');
-            $heroImage = $this->uploadBlogImage('hero_image_upload', '');
+        if (!empty($errors)) {
+            return $this->responseFactory->view('blog/create.html.twig', [
+                'errors' => $errors,
+                'values' => $values,
+            ]);
+        }
 
-            if ($cardImage === '') {
-                $errors[] = 'Card image is required.';
-            }
+        try {
+            $cardImage = $this->uploadImageService->uploadImage(
+                'card_image_upload',
+                'blog'
+            );
 
-            if ($heroImage === '') {
-                $errors[] = 'Hero image is required.';
-            }
+            $heroImage = $this->uploadImageService->uploadImage(
+                'hero_image_upload',
+                'blog'
+            );
+        } catch (\RuntimeException $exception) {
+            return $this->responseFactory->view('blog/create.html.twig', [
+                'errors' => [$exception->getMessage()],
+                'values' => $values,
+            ]);
+        }
+
+        if ($cardImage === null || $cardImage === '') {
+            $errors[] = 'Card image is required.';
+        }
+
+        if ($heroImage === null || $heroImage === '') {
+            $errors[] = 'Hero image is required.';
         }
 
         if (!empty($errors)) {
             return $this->responseFactory->view('blog/create.html.twig', [
                 'errors' => $errors,
-                'values' => [
-                    'title' => $title,
-                    'slug' => $slug,
-                    'excerpt' => $excerpt,
-                    'content' => $content,
-                    'status' => $status,
-                ],
+                'values' => $values,
             ]);
         }
 
@@ -177,14 +200,30 @@ class BlogController
             ]);
         }
 
-        $post->title = trim($request->get('title') ?? '');
-        $post->slug = trim($request->get('slug') ?? '');
-        $post->excerpt = trim($request->get('excerpt') ?? '');
-        $post->content = trim($request->get('content') ?? '');
-        $post->status = trim($request->get('status') ?? 'draft');
+        $post->title = trim((string) ($request->get('title') ?? ''));
+        $post->slug = trim((string) ($request->get('slug') ?? ''));
+        $post->excerpt = trim((string) ($request->get('excerpt') ?? ''));
+        $post->content = trim((string) ($request->get('content') ?? ''));
+        $post->status = trim((string) ($request->get('status') ?? 'draft'));
 
-        $post->cardImage = $this->uploadBlogImage('card_image_upload', $post->cardImage);
-        $post->heroImage = $this->uploadBlogImage('hero_image_upload', $post->heroImage);
+        try {
+            $post->cardImage = $this->uploadImageService->uploadImage(
+                'card_image_upload',
+                'blog',
+                $post->cardImage
+            ) ?? $post->cardImage;
+
+            $post->heroImage = $this->uploadImageService->uploadImage(
+                'hero_image_upload',
+                'blog',
+                $post->heroImage
+            ) ?? $post->heroImage;
+        } catch (\RuntimeException $exception) {
+            return $this->responseFactory->view('blog/edit.html.twig', [
+                'post' => $post,
+                'errors' => [$exception->getMessage()],
+            ]);
+        }
 
         $post->updatedAt = date('Y-m-d H:i:s');
 
@@ -219,11 +258,11 @@ class BlogController
     {
         $errors = [];
 
-        $title = trim($request->get('title') ?? '');
-        $slug = trim($request->get('slug') ?? '');
-        $excerpt = trim($request->get('excerpt') ?? '');
-        $content = trim($request->get('content') ?? '');
-        $status = trim($request->get('status') ?? 'draft');
+        $title = trim((string) ($request->get('title') ?? ''));
+        $slug = trim((string) ($request->get('slug') ?? ''));
+        $excerpt = trim((string) ($request->get('excerpt') ?? ''));
+        $content = trim((string) ($request->get('content') ?? ''));
+        $status = trim((string) ($request->get('status') ?? 'draft'));
 
         if ($title === '') {
             $errors[] = 'Title is required.';
@@ -258,61 +297,5 @@ class BlogController
         }
 
         return $errors;
-    }
-
-    private function uploadBlogImage(string $fieldName, string $currentPath): string
-    {
-        if (!isset($_FILES[$fieldName])) {
-            return $currentPath;
-        }
-
-        $file = $_FILES[$fieldName];
-
-        if (!is_array($file)) {
-            return $currentPath;
-        }
-
-        if ($file['error'] === UPLOAD_ERR_NO_FILE) {
-            return $currentPath;
-        }
-
-        if ($file['error'] !== UPLOAD_ERR_OK) {
-            return $currentPath;
-        }
-
-        $maxSize = 10 * 1024 * 1024;
-
-        if ($file['size'] > $maxSize) {
-            return $currentPath;
-        }
-
-        $allowedMimeTypes = [
-            'image/jpeg' => 'jpg',
-            'image/png' => 'png',
-            'image/webp' => 'webp',
-        ];
-
-        $mimeType = mime_content_type($file['tmp_name']);
-
-        if ($mimeType === false || !isset($allowedMimeTypes[$mimeType])) {
-            return $currentPath;
-        }
-
-        $extension = $allowedMimeTypes[$mimeType];
-        $fileName = uniqid('blog_', true) . '.' . $extension;
-
-        $uploadDir = __DIR__ . '/../../public/uploads/blog';
-
-        if (!is_dir($uploadDir) && !mkdir($uploadDir, 0775, true) && !is_dir($uploadDir)) {
-            return $currentPath;
-        }
-
-        $targetPath = $uploadDir . '/' . $fileName;
-
-        if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
-            return $currentPath;
-        }
-
-        return '/uploads/blog/' . $fileName;
     }
 }

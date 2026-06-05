@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Project;
 use App\Repositories\ProjectRepositoryInterface;
+use App\Services\ImageUploadService;
 use Framework\Request;
 use Framework\Response;
 use Framework\ResponseFactory;
@@ -14,22 +15,28 @@ class ProjectController
 
     private ProjectRepositoryInterface $projectRepository;
 
+    private ImageUploadService $uploadImageService;
+
     public function __construct(
         ResponseFactory $responseFactory,
-        ProjectRepositoryInterface $projectRepository
+        ProjectRepositoryInterface $projectRepository,
+        ImageUploadService $uploadImageService
     ) {
         $this->responseFactory = $responseFactory;
         $this->projectRepository = $projectRepository;
+        $this->uploadImageService = $uploadImageService;
     }
 
     public function index(): Response
     {
-        return $this->responseFactory->view("projects/index.html.twig");
+        return $this->responseFactory->view('projects/index.html.twig');
     }
 
     public function create(): Response
     {
-        return $this->responseFactory->view('projects/create.html.twig');
+        return $this->responseFactory->view('projects/create.html.twig', [
+            'errors' => [],
+        ]);
     }
 
     /**
@@ -40,21 +47,39 @@ class ProjectController
         $errors = $this->validate($request);
 
         $values = [
-            'title' => trim($request->get('title') ?? ''),
-            'description' => trim($request->get('description') ?? ''),
-            'long_description' => trim($request->get('long_description') ?? ''),
-            'tech' => trim($request->get('tech') ?? ''),
-            'status' => trim($request->get('status') ?? ''),
-            'completed_at' => trim($request->get('completed_at') ?? ''),
-            'category' => trim($request->get('category') ?? ''),
-            'image' => trim($request->get('image') ?? ''),
-            'url' => trim($request->get('url') ?? ''),
-            'sort_order' => trim($request->get('sort_order') ?? ''),
+            'title' => trim((string) ($request->get('title') ?? '')),
+            'description' => trim((string) ($request->get('description') ?? '')),
+            'long_description' => trim((string) ($request->get('long_description') ?? '')),
+            'tech' => trim((string) ($request->get('tech') ?? '')),
+            'status' => trim((string) ($request->get('status') ?? '')),
+            'completed_at' => trim((string) ($request->get('completed_at') ?? '')),
+            'category' => trim((string) ($request->get('category') ?? '')),
+            'url' => trim((string) ($request->get('url') ?? '')),
+            'sort_order' => trim((string) ($request->get('sort_order') ?? '')),
         ];
 
         if (!empty($errors)) {
             return $this->responseFactory->view('projects/create.html.twig', [
                 'errors' => $errors,
+                'values' => $values,
+            ]);
+        }
+
+        try {
+            $imagePath = $this->uploadImageService->uploadImage(
+                'image_upload',
+                'projects'
+            );
+        } catch (\RuntimeException $exception) {
+            return $this->responseFactory->view('projects/create.html.twig', [
+                'errors' => [$exception->getMessage()],
+                'values' => $values,
+            ]);
+        }
+
+        if ($imagePath === null || $imagePath === '') {
+            return $this->responseFactory->view('projects/create.html.twig', [
+                'errors' => ['Project image is required.'],
                 'values' => $values,
             ]);
         }
@@ -79,7 +104,7 @@ class ProjectController
         $project->status = $values['status'];
         $project->completedAt = $values['completed_at'];
         $project->category = $values['category'];
-        $project->image = $values['image'];
+        $project->image = $imagePath;
         $project->url = $values['url'];
         $project->sortOrder = (int) $values['sort_order'];
         $project->createdAt = $now;
@@ -97,16 +122,15 @@ class ProjectController
     {
         $errors = [];
 
-        $title = trim($request->get('title') ?? '');
-        $description = trim($request->get('description') ?? '');
-        $longDescription = trim($request->get('long_description') ?? '');
-        $tech = trim($request->get('tech') ?? '');
-        $status = trim($request->get('status') ?? '');
-        $completedAt = trim($request->get('completed_at') ?? '');
-        $category = trim($request->get('category') ?? '');
-        $image = trim($request->get('image') ?? '');
-        $url = trim($request->get('url') ?? '');
-        $sortOrder = trim($request->get('sort_order') ?? '');
+        $title = trim((string) ($request->get('title') ?? ''));
+        $description = trim((string) ($request->get('description') ?? ''));
+        $longDescription = trim((string) ($request->get('long_description') ?? ''));
+        $tech = trim((string) ($request->get('tech') ?? ''));
+        $status = trim((string) ($request->get('status') ?? ''));
+        $completedAt = trim((string) ($request->get('completed_at') ?? ''));
+        $category = trim((string) ($request->get('category') ?? ''));
+        $url = trim((string) ($request->get('url') ?? ''));
+        $sortOrder = trim((string) ($request->get('sort_order') ?? ''));
 
         if ($title === '') {
             $errors[] = 'Title is required.';
@@ -136,10 +160,6 @@ class ProjectController
 
         if ($category === '') {
             $errors[] = 'Category is required.';
-        }
-
-        if ($image === '') {
-            $errors[] = 'Image path is required.';
         }
 
         if ($url === '') {

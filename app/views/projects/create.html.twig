@@ -31,6 +31,7 @@
                     method="POST"
                     action="/admin/projects/create"
                     class="blog-edit-form"
+                    enctype="multipart/form-data"
             >
                 {{ csrf_input() }}
 
@@ -172,17 +173,20 @@
                 </div>
 
                 <div class="blog-edit-group">
-                    <label for="image">Image path</label>
+                    <label for="image_upload">Project image</label>
 
                     <input
-                            type="text"
-                            id="image"
-                            name="image"
+                            type="file"
+                            id="image_upload"
+                            name="image_upload"
                             class="blog-edit-input"
-                            value="{{ values.image ?? '' }}"
-                            placeholder="/uploads/projects/project-image.png"
+                            accept="image/jpeg,image/png,image/webp"
                             required
                     >
+
+                    <small class="blog-edit-help">
+                        Upload JPG, PNG or WEBP. Maximum size: 10 MB.
+                    </small>
                 </div>
 
                 <div class="blog-edit-group">
