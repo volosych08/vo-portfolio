@@ -1,5 +1,7 @@
 <?php
 
+namespace Services;
+
 use App\Models\StudyAssessment;
 use App\Services\StudyProgressService;
 use PHPUnit\Framework\TestCase;

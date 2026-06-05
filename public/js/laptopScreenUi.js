@@ -1,12 +1,15 @@
 export class LaptopScreenUI {
-    constructor(screenCanvas, screenTexture, projects) {
+    constructor(screenCanvas, screenTexture, projects, getProject) {
         this.screenCanvas = screenCanvas;
         this.screenTexture = screenTexture;
         this.context = screenCanvas.getContext('2d');
 
         this.projects = projects;
+        this.getProject = getProject;
+        this.activeProject = null;
+
         this.mode = 'list';
-        this.activeProjectIndex = 0;
+
         this.clickableAreas = [];
 
         this.currentPage = 0;
@@ -166,14 +169,18 @@ export class LaptopScreenUI {
             38,
             '#2563eb',
             'view-project',
-            { projectIndex: index },
+            { projectId: project.id },
             16
         );
     }
 
     drawProjectDetail() {
         const ctx = this.context;
-        const project = this.projects[this.activeProjectIndex];
+        const project = this.activeProject;
+
+        if (!project) {
+            return;
+        }
 
         const panelX = 22;
         const panelY = 20;
@@ -209,7 +216,13 @@ export class LaptopScreenUI {
 
         ctx.fillStyle = 'rgba(255,255,255,0.9)';
         ctx.font = '17px Arial';
-        ctx.fillText(`Completed on ${project.date}`, contentX, contentY + 100);
+        const dateLabel = project.status === 'Completed'
+            ? `Completed on ${project.date}`
+            : project.status === 'In Progress'
+                ? `Started on ${project.date}`
+                : `Planned for ${project.date}`;
+
+        ctx.fillText(dateLabel, contentX, contentY + 100);
         ctx.fillText(`Category: ${project.category}`, contentX, contentY + 125);
 
         this.drawLine(contentX, contentY + 148, contentWidth);
@@ -293,10 +306,53 @@ export class LaptopScreenUI {
         ctx.textAlign = 'left';
     }
 
+    getStatusStyle(status) {
+        const normalizedStatus = String(status).trim().toLowerCase();
+
+        const styles = {
+            completed: {
+                background: '#22c55e',
+                border: 'rgba(255, 255, 255, 0.22)',
+                icon: '✓',
+            },
+            'in progress': {
+                background: '#f59e0b',
+                border: 'rgba(255, 255, 255, 0.22)',
+                icon: '↻',
+            },
+            planned: {
+                background: '#3b82f6',
+                border: 'rgba(255, 255, 255, 0.22)',
+                icon: '•',
+            },
+        };
+
+        return styles[normalizedStatus] ?? {
+            background: '#64748b',
+            border: 'rgba(255, 255, 255, 0.22)',
+            icon: '?',
+        };
+    }
+
     drawStatusPill(status, x, y) {
         const ctx = this.context;
+        const style = this.getStatusStyle(status);
 
-        this.roundRect(x, y, 120, 30, 9, '#57b85a', 'rgba(255,255,255,0.16)');
+        ctx.font = 'bold 15px Arial';
+
+        const textWidth = ctx.measureText(status).width;
+        const pillWidth = textWidth + 58;
+        const pillHeight = 30;
+
+        this.roundRect(
+            x,
+            y,
+            pillWidth,
+            pillHeight,
+            9,
+            style.background,
+            style.border
+        );
 
         ctx.strokeStyle = '#ffffff';
         ctx.lineWidth = 2;
@@ -306,10 +362,12 @@ export class LaptopScreenUI {
 
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 13px Arial';
-        ctx.fillText('✓', x + 13, y + 20);
+        ctx.textAlign = 'center';
+        ctx.fillText(style.icon, x + 18, y + 20);
 
         ctx.font = 'bold 15px Arial';
-        ctx.fillText(status, x + 34, y + 20);
+        ctx.textAlign = 'left';
+        ctx.fillText(status, x + 36, y + 20);
     }
 
     drawButton(text, x, y, width, height, color, action, data = {}, fontSize = 20) {
@@ -392,7 +450,7 @@ export class LaptopScreenUI {
         });
     }
 
-    handleClick(x, y) {
+    async handleClick(x, y) {
         for (const area of this.clickableAreas) {
             const insideX = x >= area.x && x <= area.x + area.width;
             const insideY = y >= area.y && y <= area.y + area.height;
@@ -402,23 +460,17 @@ export class LaptopScreenUI {
             }
 
             if (area.id === 'view-project') {
-                this.activeProjectIndex = area.data.projectIndex;
-                this.mode = 'detail';
-                this.render();
+                try {
+                    this.activeProject = await this.getProject(area.data.projectId);
+                    this.mode = 'detail';
+                    this.render();
+                } catch (error) {
+                    console.error('Could not load project details:', error);
+                }
+
                 return;
             }
 
-            if (area.id === 'back') {
-                this.mode = 'list';
-                this.render();
-                return;
-            }
-
-            if (area.id === 'open-url') {
-                const project = this.projects[this.activeProjectIndex];
-                window.location.href = project.url;
-                return;
-            }
             if (area.id === 'previous-page') {
                 const totalPages = Math.ceil(this.projects.length / this.projectsPerPage);
 
@@ -442,6 +494,17 @@ export class LaptopScreenUI {
                 }
 
                 this.render();
+                return;
+            }
+
+            if (area.id === 'back') {
+                this.mode = 'list';
+                this.render();
+                return;
+            }
+
+            if (area.id === 'open-url' && this.activeProject) {
+                window.location.href = this.activeProject.url;
                 return;
             }
         }

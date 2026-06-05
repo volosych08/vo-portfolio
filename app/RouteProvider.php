@@ -7,6 +7,7 @@ use App\Controllers\DashboardController;
 use App\Controllers\FaqController;
 use App\Controllers\HomeController;
 use App\Controllers\ProfileController;
+use App\Controllers\ProjectApiController;
 use App\Controllers\ProjectController;
 use App\Controllers\UserController;
 use App\Middleware\AuthMiddleware;
@@ -22,12 +23,24 @@ class RouteProvider implements RouteProviderInterface
      */
     public function register(Router $router, ServiceContainer $container): void
     {
+        $projectApiController = $container->get(ProjectApiController::class);
+        //api get points
+        $router->addRoute('GET', '/api/projects', [$projectApiController, 'projects']);
+        $router->addRoute('GET', '/api/projects/(?<id>\d+)', [$projectApiController, 'project']);
+
         $authMiddleware = $container->get(AuthMiddleware::class);
         $homeController = $container->get(HomeController::class);
         $router->addRoute('GET', '/', [$homeController, "index"]);
 
         $projectController = $container->get(ProjectController::class);
         $router->addRoute('GET', '/projects', [$projectController, "index"]);
+        $router
+            ->addRoute('GET', '/admin/projects/create', [$projectController, 'create'])
+            ->addMiddleware([$authMiddleware, 'requireAdmin']);
+
+        $router
+            ->addRoute('POST', '/admin/projects/create', [$projectController, 'store'])
+            ->addMiddleware([$authMiddleware, 'requireAdmin']);
 
         $profileController = $container->get(ProfileController::class);
         $router->addRoute('GET', '/profile', [$profileController, "index"]);
