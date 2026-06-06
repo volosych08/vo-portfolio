@@ -106,8 +106,8 @@ http://localhost:8081
 phpMyAdmin login:
 
 * Server: `db`
-* User: `root`
-* Password: `root_password`
+* User: `vovaAdmin`
+* Password: `1710`
 
 Stop:
 

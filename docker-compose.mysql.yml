@@ -11,8 +11,8 @@ services:
       DB_HOST: db
       DB_PORT: 3306
       DB_DATABASE: itdp
-      DB_USERNAME: itdp_user
-      DB_PASSWORD: itdp_password
+      DB_USERNAME: vovaAdmin
+      DB_PASSWORD: 1710
       SQLITE_SOURCE_PATH: /var/www/html/storage-sqlite/database.sqlite
     volumes:
       - sqlite_data:/var/www/html/storage-sqlite:ro
@@ -26,16 +26,16 @@ services:
     container_name: itdp-volosych08-db
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_ROOT_PASSWORD: 1710
       MYSQL_DATABASE: itdp
-      MYSQL_USER: itdp_user
-      MYSQL_PASSWORD: itdp_password
+      MYSQL_USER: vovaAdmin
+      MYSQL_PASSWORD: 1710
     volumes:
       - mysql_data:/var/lib/mysql
     ports:
       - "3307:3306"
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot_password"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p1710"]
       interval: 5s
       timeout: 5s
       retries: 20
@@ -46,8 +46,6 @@ services:
     restart: unless-stopped
     environment:
       PMA_HOST: db
-      PMA_USER: root
-      PMA_PASSWORD: root_password
     ports:
       - "8081:80"
     depends_on:
