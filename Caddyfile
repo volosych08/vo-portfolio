@@ -1,3 +1,7 @@
 volosych.dev {
     reverse_proxy app:8888
 }
+
+www.volosych.dev {
+    reverse_proxy app:8888
+}
