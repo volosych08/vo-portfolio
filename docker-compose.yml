@@ -1,0 +1,20 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: itdp-volosych08-app
+    ports:
+      - "8888:8888"
+    environment:
+      DB_CONNECTION: sqlite
+      SQLITE_PATH: /var/www/html/storage/database.sqlite
+    volumes:
+      - sqlite_data:/var/www/html/storage
+      - uploads_data:/var/www/html/public/uploads
+
+volumes:
+  sqlite_data:
+    name: itdp-volosych08_sqlite_data
+  uploads_data:
+    name: itdp-volosych08_uploads_data

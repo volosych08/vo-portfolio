@@ -1,0 +1,60 @@
+services:
+  caddy:
+    image: caddy:2
+    container_name: itdp-volosych08-caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: itdp-volosych08-app-prod
+    restart: unless-stopped
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: itdp
+      DB_USERNAME: itdp_user
+      DB_PASSWORD: itdp_password
+    volumes:
+      - uploads_data:/var/www/html/public/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mysql:8.4
+    container_name: itdp-volosych08-db-prod
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: itdp
+      MYSQL_USER: itdp_user
+      MYSQL_PASSWORD: itdp_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot_password"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  caddy_data:
+    name: itdp-volosych08_caddy_data
+  caddy_config:
+    name: itdp-volosych08_caddy_config
+  mysql_data:
+    name: itdp-volosych08_mysql_data
+  uploads_data:
+    name: itdp-volosych08_uploads_data
