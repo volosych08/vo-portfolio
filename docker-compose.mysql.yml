@@ -1,0 +1,63 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: itdp-volosych08-app-mysql
+    ports:
+      - "8888:8888"
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: itdp
+      DB_USERNAME: itdp_user
+      DB_PASSWORD: itdp_password
+      SQLITE_SOURCE_PATH: /var/www/html/storage-sqlite/database.sqlite
+    volumes:
+      - sqlite_data:/var/www/html/storage-sqlite:ro
+      - uploads_data:/var/www/html/public/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mysql:8.4
+    container_name: itdp-volosych08-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: itdp
+      MYSQL_USER: itdp_user
+      MYSQL_PASSWORD: itdp_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot_password"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: itdp-volosych08-phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: root_password
+    ports:
+      - "8081:80"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  sqlite_data:
+    name: itdp-volosych08_sqlite_data
+  mysql_data:
+    name: itdp-volosych08_mysql_data
+  uploads_data:
+    name: itdp-volosych08_uploads_data

@@ -40,7 +40,20 @@ class ServiceProvider implements ServiceProviderInterface
     {
         $responseFactory = $container->get(ResponseFactory::class);
 
-        $database = $container->get(Database::class);
+        $connection = getenv('DB_CONNECTION') ?: 'sqlite';
+
+        if ($connection === 'mysql') {
+            $database = new Database(
+                'mysql:host=' . getenv('DB_HOST') .
+                ';port=' . (getenv('DB_PORT') ?: '3306') .
+                ';dbname=' . getenv('DB_DATABASE') .
+                ';charset=utf8mb4',
+                getenv('DB_USERNAME') ?: null,
+                getenv('DB_PASSWORD') ?: null
+            );
+        } else {
+            $database = new Database(getenv('SQLITE_PATH') ?: 'database.sqlite');
+        }
 
         $projectRepository = new ProjectRepository($database);
         $container->set(ProjectRepositoryInterface::class, $projectRepository);
