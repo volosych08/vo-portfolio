@@ -67,7 +67,6 @@ class ServiceProvider implements ServiceProviderInterface
         $homeController = new HomeController($responseFactory);
         $container->set(HomeController::class, $homeController);
 
-
         $studyAssessmentRepository = new StudyAssessmentRepository($database);
         $container->set(StudyAssessmentRepositoryInterface::class, $studyAssessmentRepository);
         $studyProgressService = new StudyProgressService();

@@ -47,6 +47,7 @@ deptrac:
       - Controllers
       - Framework
       - Database
+      - Repositories
     Repositories:
       - Models
       - Database

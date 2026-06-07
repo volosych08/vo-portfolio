@@ -31,3 +31,6 @@ jobs:
 
       - name: Run PHPUnit tests through Maestro
         run: php maestro phpunit
+
+      - name: Run Deptrac through Maestro
+        run: php maestro deptrac
