@@ -5,7 +5,15 @@ if (!file_exists(__DIR__ . '/vendor/autoload.php')) {
     die('You must run composer install');
 }
 
-if ($argv[1] === 'migrate') {
+$command = $argv[1] ?? null;
+
+function runCommand(string $command): void
+{
+    passthru($command, $exitCode);
+    exit($exitCode);
+}
+
+if ($command === 'migrate') {
     require 'vendor/autoload.php';
 
     $config = array(
@@ -18,26 +26,26 @@ if ($argv[1] === 'migrate') {
     $kernel->getDatabase()->migrate(__DIR__ . '/database/');
 }
 
-if ($argv[1] === 'serve') {
-    passthru('php -d upload_max_filesize=10M -d post_max_size=12M -d memory_limit=128M -S 127.0.0.1:8888 -t public');
+if ($command === 'serve') {
+    runCommand('php -d upload_max_filesize=10M -d post_max_size=12M -d memory_limit=128M -S 127.0.0.1:8888 -t public');
 }
 
-if ($argv[1] === 'phpstan') {
-    passthru('php vendor/bin/phpstan --ansi');
+if ($command === 'phpstan') {
+    runCommand('php vendor/bin/phpstan --ansi');
 }
 
-if ($argv[1] === 'phpcs') {
-    passthru('php vendor/bin/phpcs --colors');
+if ($command === 'phpcs') {
+    runCommand('php vendor/bin/phpcs --colors');
 }
 
-if ($argv[1] === 'deptrac') {
-    passthru('php vendor/bin/deptrac --ansi');
+if ($command === 'deptrac') {
+    runCommand('php vendor/bin/deptrac --ansi');
 }
 
-if ($argv[1] === 'phpunit') {
-    passthru('./vendor/bin/phpunit --testdox --colors=always tests');
+if ($command === 'phpunit') {
+    runCommand('./vendor/bin/phpunit --testdox --colors=always tests');
 }
 
-if ($argv[1] === 'xdebug') {
-    run('XDEBUG_MODE=coverage php vendor/bin/phpunit --colors=always --coverage-text');
+if ($command === 'xdebug') {
+    runCommand('XDEBUG_MODE=coverage php vendor/bin/phpunit --colors=always --coverage-text');
 }

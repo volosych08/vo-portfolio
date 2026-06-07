@@ -9,7 +9,7 @@ on:
 
 jobs:
   tests:
-    name: Quality checks
+    name: PHPUnit
     runs-on: ubuntu-latest
 
     steps:
@@ -19,7 +19,7 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: '8.4'
           extensions: pdo, pdo_sqlite, pdo_mysql, fileinfo
           coverage: xdebug
 
@@ -29,11 +29,5 @@ jobs:
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist --no-progress
 
-      - name: Run PHPUnit tests
-        run: XDEBUG_MODE=coverage php vendor/bin/phpunit --colors=always --coverage-text
-
-      - name: Run PHPStan
-        run: vendor/bin/phpstan analyse
-
-      - name: Run PHPCS
-        run: vendor/bin/phpcs
+      - name: Run PHPUnit tests through Maestro
+        run: php maestro phpunit
