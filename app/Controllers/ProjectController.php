@@ -112,7 +112,7 @@ class ProjectController
 
         $this->projectRepository->insert($project);
 
-        return $this->responseFactory->redirect('/projects-3d');
+        return $this->responseFactory->redirect('/projects');
     }
 
     /**
