@@ -1,0 +1,6 @@
+services:
+  app:
+    environment:
+      SQLITE_SOURCE_PATH: /var/www/html/database-source.sqlite
+    volumes:
+      - ./database.sqlite:/var/www/html/database-source.sqlite:ro
