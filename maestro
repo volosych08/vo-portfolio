@@ -31,7 +31,7 @@ if ($command === 'serve') {
 }
 
 if ($command === 'phpstan') {
-    runCommand('php vendor/bin/phpstan --ansi');
+    runCommand('php -d memory_limit=512M vendor/bin/phpstan --ansi');
 }
 
 if ($command === 'phpcs') {

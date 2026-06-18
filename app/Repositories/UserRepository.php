@@ -30,7 +30,8 @@ class UserRepository implements UserRepositoryInterface
 
     public function insert(User $user): User
     {
-        $stmt = $this->database->run("INSERT INTO users (username, password, name, role) VALUES (:username, :password, :name, :role)", [
+        $stmt = $this->database->run("INSERT INTO users (username, password, name, role)
+        VALUES (:username, :password, :name, :role)", [
             "username" => $user->username,
             "password" => $user->password,
             "name" => $user->name,
@@ -42,7 +43,8 @@ class UserRepository implements UserRepositoryInterface
 
     public function update(User $user): User
     {
-        $stmt = $this->database->run("UPDATE users SET username = :username, password = :password, name = :name, role = :role WHERE id = :id", [
+        $stmt = $this->database->run("UPDATE users
+        SET username = :username, password = :password, name = :name, role = :role WHERE id = :id", [
             "username" => $user->username,
             "password" => $user->password,
             "name" => $user->name,
@@ -65,7 +67,8 @@ class UserRepository implements UserRepositoryInterface
 
     public function findByUsername(string $username): ?User
     {
-        $stmt = $this->database->run("SELECT * FROM users WHERE username = :username", ["username" => $username])->fetch();
+        $stmt = $this->database->run("SELECT * FROM users
+         WHERE username = :username", ["username" => $username])->fetch();
         if (!$stmt) {
             return null;
         }

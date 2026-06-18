@@ -123,15 +123,20 @@ class BlogController
             ]);
         }
 
-        if ($cardImage === null || $cardImage === '') {
-            $errors[] = 'Card image is required.';
-        }
+        if (
+            !is_string($cardImage)
+            || $cardImage === ''
+            || !is_string($heroImage)
+            || $heroImage === ''
+        ) {
+            if (!is_string($cardImage) || $cardImage === '') {
+                $errors[] = 'Card image is required.';
+            }
 
-        if ($heroImage === null || $heroImage === '') {
-            $errors[] = 'Hero image is required.';
-        }
+            if (!is_string($heroImage) || $heroImage === '') {
+                $errors[] = 'Hero image is required.';
+            }
 
-        if (!empty($errors)) {
             return $this->responseFactory->view('blog/create.html.twig', [
                 'errors' => $errors,
                 'values' => $values,

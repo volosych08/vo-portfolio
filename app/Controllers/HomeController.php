@@ -18,6 +18,4 @@ class HomeController
     {
         return $this->responseFactory->view("index.html.twig");
     }
-
-
 }

@@ -26,7 +26,8 @@ class CsrfService
                 throw new \Exception('Session not set in CsrfService');
             }
             $token = $this->getToken($this->session);
-            return '<input type="hidden" name="csrf_token" value="' . htmlspecialchars($token, ENT_QUOTES, 'UTF-8') . '">';
+            return '<input type="hidden" name="csrf_token" value="' .
+                htmlspecialchars($token, ENT_QUOTES, 'UTF-8') . '">';
         });
     }
 

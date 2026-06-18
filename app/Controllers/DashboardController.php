@@ -80,14 +80,16 @@ class DashboardController
             $rawGrade = str_replace(',', '.', $rawGrade);
 
             if (!is_numeric($rawGrade)) {
-                $errors[] = 'Grade for ' . $assessment->courseName . ' - ' . $assessment->examName . ' must be a number.';
+                $errors[] = 'Grade for ' . $assessment->courseName .
+                    ' - ' . $assessment->examName . ' must be a number.';
                 continue;
             }
 
             $grade = (float) $rawGrade;
 
             if ($grade < 1 || $grade > 10) {
-                $errors[] = 'Grade for ' . $assessment->courseName . ' - ' . $assessment->examName . ' must be between 1 and 10.';
+                $errors[] = 'Grade for ' . $assessment->courseName .
+                    ' - ' . $assessment->examName . ' must be between 1 and 10.';
                 continue;
             }
 

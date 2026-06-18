@@ -106,7 +106,8 @@ class BlogRepository implements BlogRepositoryInterface
             "INSERT INTO blog_posts 
             (title, slug, excerpt, content, status, card_image, hero_image, published_at, created_at, updated_at) 
             VALUES 
-            (:title, :slug, :excerpt, :content, :status, :card_image, :hero_image, :published_at, :created_at, :updated_at)",
+            (:title, :slug, :excerpt, :content, :status, :card_image,
+             :hero_image, :published_at, :created_at, :updated_at)",
             [
                 "title" => $post->title,
                 "slug" => $post->slug,
